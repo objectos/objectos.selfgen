@@ -21,14 +21,14 @@
 ## Coordinates
 GROUP_ID := br.com.objectos
 ARTIFACT_ID := objectos.selfgen
-VERSION := 0.1-SNAPSHOT
+VERSION := 0.1
 MODULE := $(ARTIFACT_ID)
 
 ## Resolution dir (required)
 RESOLUTION_DIR := work/resolution
 
 ## Deps versions
-CODE_VERSION := 0.1
+CODE_VERSION := 0.2
 SLF4J_VERSION := 1.7.36
 TESTNG_VERSION := 7.7.1
 
