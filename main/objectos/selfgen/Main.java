@@ -8,9 +8,11 @@ package objectos.selfgen;
 import java.io.IOException;
 
 public final class Main {
-	private Main() {}
+  private Main() {}
 
-	public static void main(String[] args) throws IOException {
-		CssSpec.main(args);
-	}
+  public static void main(String[] args) throws IOException {
+    CssSpec.main(args);
+    HtmlSpec.main(args);
+    HtmlStyleSpec.main(args);
+  }
 }
