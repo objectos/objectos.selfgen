@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import objectos.code.Code;
-import objectos.lang.Check;
+import objectos.selfgen.util.Check;
 
 public abstract class CssUtilSelfGen {
 

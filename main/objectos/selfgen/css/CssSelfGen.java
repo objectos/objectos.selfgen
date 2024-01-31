@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import objectos.code.Code;
-import objectos.lang.Check;
+import objectos.selfgen.util.Check;
 
 public abstract class CssSelfGen {
 

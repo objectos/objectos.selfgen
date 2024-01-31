@@ -32,6 +32,8 @@ public final class ElementSpec
 
   public ClassName instructionClassName;
 
+  public ClassName instructionClassName2;
+
   private ElementAttributeSpec attribute;
 
   private ContentModel childSpec = ContentModel.start();
@@ -177,6 +179,8 @@ public final class ElementSpec
     constantName = JavaNames.toIdentifier(name.toUpperCase());
 
     instructionClassName = ClassName.of(ThisTemplate.API, simpleName + "Instruction");
+
+    instructionClassName2 = ClassName.of(ThisTemplate.BASE_API, simpleName + "Instruction");
 
     return this;
   }

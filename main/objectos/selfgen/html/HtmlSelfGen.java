@@ -54,6 +54,14 @@ public abstract class HtmlSelfGen {
 
     prepare();
 
+    // new
+
+    writeTo(new BaseApiStep(this), directory);
+
+    writeTo(new BaseAttributesStep(this), directory);
+
+    // old
+
     writeTo(new ApiStep(this), directory);
 
     writeTo(new BaseAttributeDslStep(this), directory);

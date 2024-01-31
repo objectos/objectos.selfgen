@@ -16,7 +16,7 @@
 package objectos.selfgen.css;
 
 import java.util.Comparator;
-import objectos.lang.Check;
+import objectos.selfgen.util.Check;
 import objectos.selfgen.util.JavaNames;
 
 final class SelectorName {

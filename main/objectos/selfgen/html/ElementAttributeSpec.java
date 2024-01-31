@@ -37,6 +37,14 @@ class ElementAttributeSpec extends AttributeSpec {
       instructionClassName = ClassName.of(ThisTemplate.API, simpleName() + "Attribute");
     }
 
+    var parentClassName2 = parent.instructionClassName2;
+
+    elementInstructionMap2.put(parentClassName2.simpleName(), parent.instructionClassName2);
+
+    if (elementInstructionMap.size() > 1) {
+      instructionClassName2 = ClassName.of(ThisTemplate.BASE_API, simpleName() + "Attribute");
+    }
+
     return this;
   }
 

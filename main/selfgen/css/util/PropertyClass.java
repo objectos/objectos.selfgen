@@ -17,7 +17,7 @@ package selfgen.css.util;
 
 import objectos.code.ClassName;
 import objectos.code.Code;
-import objectos.lang.Check;
+import objectos.selfgen.util.Check;
 
 public sealed abstract class PropertyClass permits AllButFirst, Property1, Property2, Property2x2, PropertyCustom {
 

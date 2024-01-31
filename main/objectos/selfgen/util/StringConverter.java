@@ -15,8 +15,6 @@
  */
 package objectos.selfgen.util;
 
-import objectos.lang.Check;
-
 /**
  * A class for converting strings by applying a series of user defined
  * conversions.

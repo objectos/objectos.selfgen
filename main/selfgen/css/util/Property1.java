@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import objectos.code.Code;
-import objectos.lang.Check;
+import objectos.selfgen.util.Check;
 
 public final class Property1 extends PropertyClass {
 

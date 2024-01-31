@@ -52,7 +52,11 @@ abstract class AttributeSpec {
 
   final Map<String, ClassName> elementInstructionMap = new TreeMap<>();
 
+  final Map<String, ClassName> elementInstructionMap2 = new TreeMap<>();
+
   ClassName instructionClassName;
+
+  ClassName instructionClassName2;
 
   private final Set<AttributeKind> kindSet = new TreeSet<>();
 

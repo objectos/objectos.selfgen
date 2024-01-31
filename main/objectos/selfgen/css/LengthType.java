@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 import objectos.code.ClassName;
 import objectos.code.TypeName;
-import objectos.lang.Check;
+import objectos.selfgen.util.Check;
 
 public final class LengthType implements ParameterType, Value {
 

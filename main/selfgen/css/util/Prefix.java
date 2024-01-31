@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import objectos.code.ClassName;
 import objectos.code.Code;
-import objectos.lang.Check;
+import objectos.selfgen.util.Check;
 
 public enum Prefix {
 
