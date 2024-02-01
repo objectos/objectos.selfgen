@@ -42,7 +42,7 @@ class ElementAttributeSpec extends AttributeSpec {
     elementInstructionMap2.put(parentClassName2.simpleName(), parent.instructionClassName2);
 
     if (elementInstructionMap.size() > 1) {
-      instructionClassName2 = ClassName.of(ThisTemplate.BASE_API, simpleName() + "Attribute");
+      instructionClassName2 = ClassName.of(ThisTemplate.BASE_TYPES, simpleName() + "Attribute");
     }
 
     return this;

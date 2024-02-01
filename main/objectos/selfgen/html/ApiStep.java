@@ -127,14 +127,14 @@ final class ApiStep extends ThisTemplate {
           \{iterator}<String> classNames();
         }
       }
-      
+
       /**
        * The attribute instruction.
        */
       public static final class Attribute
-          implements 
+          implements
     \{extendsAttribute()},
-          \{GLOBAL_ATTRIBUTE} {
+          \{GLOBAL_ATTRIBUTE.simpleName()} {
         private Attribute() {}
       }
 
@@ -180,11 +180,11 @@ final class ApiStep extends ThisTemplate {
       thisSimpleName = thisClassName.simpleName();
 
       sb.append(
-        code."""
+          code."""
           /**
            * Allowed as a child of the {@code \{element.name()}} element.
            */
-          public sealed interface \{thisSimpleName} extends \{INSTRUCTION} {}
+          public sealed interface \{thisSimpleName} extends \{INSTRUCTION.simpleName()} {}
 
         """
       );
@@ -210,15 +210,15 @@ final class ApiStep extends ThisTemplate {
 
       String superTypes;
       superTypes = attribute.elementInstructionMap
-        .values()
-        .stream()
-        .map(ClassName::simpleName)
-        .collect(Collectors.joining(",\n"));
+          .values()
+          .stream()
+          .map(ClassName::simpleName)
+          .collect(Collectors.joining(",\n"));
 
       superTypes = Code.indent(superTypes, 6);
 
       sb.append(
-        code."""
+          code."""
           /**
            * The {@code \{attribute.name()}} attribute.
            */
@@ -235,13 +235,13 @@ final class ApiStep extends ThisTemplate {
 
   private String extendsAll() {
     String all = spec.elements().stream()
-      .map(spec -> spec.instructionClassName)
-      .map(ClassName::simpleName)
-      .collect(Collectors.joining(",\n"));
+        .map(spec -> spec.instructionClassName)
+        .map(ClassName::simpleName)
+        .collect(Collectors.joining(",\n"));
 
     return Code.indent(all, 6);
   }
-  
+
   private String extendsAttribute() {
     String s = spec.attributes().stream()
         .map(spec -> spec.instructionClassName)

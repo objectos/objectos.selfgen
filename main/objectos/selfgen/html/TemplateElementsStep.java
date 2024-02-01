@@ -20,22 +20,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
-final class BaseElementDslStep extends ThisTemplate {
-	private static final ClassName AMBIGUOUS = ClassName.of(HTML_INTERNAL, "Ambiguous");
+final class TemplateElementsStep extends ThisTemplate {
+  public TemplateElementsStep(HtmlSelfGen spec) {
+    super(spec);
+  }
 
-	public BaseElementDslStep(HtmlSelfGen spec) {
-		super(spec);
-	}
-
-	@Override
+  @Override
   final String contents() {
     className(
-      ClassName.of("objectos.html", "BaseElementDsl")
-    );
+        ClassName.of("objectos.html", "TemplateElements")
+  );
 
     return code."""
     /*
-     * Copyright (C) 2015-2023 Objectos Software LTDA.
+     * Copyright (C) \{COPYRIGHT_YEARS} Objectos Software LTDA.
      *
      * Licensed under the Apache License, Version 2.0 (the "License");
      * you may not use this file except in compliance with the License.
@@ -52,30 +50,24 @@ final class BaseElementDslStep extends ThisTemplate {
     package \{packageName};
     \{importList}
     /**
-     * Provides methods for rendering HTML elements.
+     * Provides methods for rendering HTML elements in templates.
      */
     \{GENERATED_MSG}
-    public sealed abstract class \{simpleName} extends BaseAttributeDsl permits BaseTemplateDsl {
-      \{simpleName} () {}
+    public sealed abstract class \{simpleName} extends TemplateAttributes permits TemplateUtilities {
+      \{simpleName}() {}
 
     \{elements()}
       /**
        * Generates the {@code <!DOCTYPE html>} doctype.
        */
       protected final void doctype() {
-        api().doctype();
+        html.doctype();
       }
-
-      abstract void ambiguous(\{AMBIGUOUS} name, String text);
-
-      abstract void element(\{STD_ELEMENT_NAME} name, String text);
-
-      abstract void element(\{STD_ELEMENT_NAME} name, \{INSTRUCTION}[] contents);
     }
     """;
   }
 
-	private String elements() {
+  private String elements() {
     List<String> methods;
     methods = new ArrayList<>();
 
@@ -87,13 +79,9 @@ final class BaseElementDslStep extends ThisTemplate {
       methodName = element.methodName();
 
       ClassName paramType;
-      paramType = element.instructionClassName;
+      paramType = element.instructionClassName2;
 
-      String constantName;
-      constantName = element.constantName;
-
-      methods.add(
-        code."""
+      methods.add(code."""
           /**
            * Generates the {@code \{element.name()}} element with the specified content.
            *
@@ -102,17 +90,14 @@ final class BaseElementDslStep extends ThisTemplate {
            *
            * @return an instruction representing this element.
            */
-          protected final \{ELEMENT_CONTENTS} \{methodName}(\{paramType}... contents) {
-            element(\{STD_ELEMENT_NAME}.\{constantName}, contents);
-            return \{API}.ELEMENT;
+          protected final \{ELEMENT_INSTRUCTION} \{methodName}(\{paramType}... contents) {
+            return html.\{methodName}(contents);
           }
-        """
-      );
+        """);
 
       if (template.shouldIncludeText(element)) {
 
-        methods.add(
-          code."""
+        methods.add(code."""
             /**
              * Generates the {@code \{element.name()}} element with the specified text.
              *
@@ -121,17 +106,14 @@ final class BaseElementDslStep extends ThisTemplate {
              *
              * @return an instruction representing this element.
              */
-            protected final \{ELEMENT_CONTENTS} \{methodName}(String text) {
-              element(\{STD_ELEMENT_NAME}.\{constantName}, text);
-              return \{API}.ELEMENT;
+            protected final \{ELEMENT_INSTRUCTION} \{methodName}(String text) {
+              return html.\{methodName}(text);
             }
-          """
-        );
+          """);
 
       } else if (spec.isAmbiguous(element)) {
 
-        methods.add(
-          code."""
+        methods.add(code."""
             /**
              * Generates the {@code \{element.name()}} attribute or element with the specified text.
              *
@@ -140,12 +122,10 @@ final class BaseElementDslStep extends ThisTemplate {
              *
              * @return an instruction representing this attribute or element.
              */
-            protected final \{ELEMENT_CONTENTS} \{methodName}(String text) {
-              ambiguous(\{AMBIGUOUS}.\{constantName}, text);
-              return \{API}.ELEMENT;
+            protected final \{ELEMENT_INSTRUCTION} \{methodName}(String text) {
+              return html.\{methodName}(text);
             }
-          """
-        );
+          """);
 
       }
     }

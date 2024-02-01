@@ -180,7 +180,7 @@ public final class ElementSpec
 
     instructionClassName = ClassName.of(ThisTemplate.API, simpleName + "Instruction");
 
-    instructionClassName2 = ClassName.of(ThisTemplate.BASE_API, simpleName + "Instruction");
+    instructionClassName2 = ClassName.of(ThisTemplate.BASE_TYPES, simpleName + "Instruction");
 
     return this;
   }

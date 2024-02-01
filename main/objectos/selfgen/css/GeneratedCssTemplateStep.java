@@ -115,9 +115,6 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
       String fieldName;
       fieldName = selector.fieldName;
 
-      String selectorName;
-      selectorName = selector.selectorName;
-
       ClassName impl;
       impl = switch (selector.kind) {
         case TYPE -> STANDARD_TYPE_SELECTOR;
@@ -130,14 +127,14 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
       };
 
       result.add(
-        code."""
+          code."""
           protected static final \{SELECTOR} \{fieldName} = \{impl}.\{fieldName};
         """
       );
     }
 
     result.add(
-      code."""
+        code."""
         protected static final \{SELECTOR} any = \{STANDARD_NAME}.any;
       """
     );
@@ -170,7 +167,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
       fieldName = color.fieldName();
 
       result.add(
-        code."""
+          code."""
           protected static final \{COLOR_VALUE} \{fieldName} = \{STANDARD_NAME}.\{fieldName};
         """
       );
@@ -184,7 +181,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
       hexValue = colorHex.hexValue();
 
       result.add(
-        code."""
+          code."""
           protected static final \{COLOR_VALUE} \{constantName} = \{COLOR}.ofHex("\{hexValue}");
         """
       );
@@ -211,7 +208,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
       fieldName = kw.fieldName;
 
       result.add(
-        code."""
+          code."""
           protected static final \{type} \{fieldName} = \{STANDARD_NAME}.\{fieldName};
         """
       );
@@ -246,7 +243,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
       for (var primitive : primitives) {
         result.add(
-          code."""
+            code."""
             protected final \{LENGTH_VALUE} \{unit}(\{primitive} value) {
               return length(value, \{LENGTH_UNIT}.\{enumName});
             }
@@ -257,7 +254,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     for (var primitive : primitives) {
       result.add(
-        code."""
+          code."""
           abstract \{LENGTH_VALUE} length(\{primitive} value, \{LENGTH_UNIT} unit);
         """
       );
@@ -408,7 +405,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
           }
         };
 
-        result.add(m);
+                result.add(m);
       }
     }
   }
@@ -416,7 +413,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
   private void declarationMethods(List<String> result) {
     if (declSig1) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, \{PROPERTY_VALUE} value);
         """
       );
@@ -424,7 +421,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (declSig2) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, \{PROPERTY_VALUE} value1, \{PROPERTY_VALUE} value2);
         """
       );
@@ -432,7 +429,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (declSig3) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, \{PROPERTY_VALUE} value1, \{PROPERTY_VALUE} value2, \{PROPERTY_VALUE} value3);
         """
       );
@@ -440,7 +437,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (declSig4) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, \{PROPERTY_VALUE} value1, \{PROPERTY_VALUE} value2, \{PROPERTY_VALUE} value3, \{PROPERTY_VALUE} value4);
         """
       );
@@ -448,7 +445,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (declSig5) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, \{PROPERTY_VALUE} value1, \{PROPERTY_VALUE} value2, \{PROPERTY_VALUE} value3, \{PROPERTY_VALUE} value4, \{PROPERTY_VALUE} value5);
         """
       );
@@ -456,7 +453,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (declSig6) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, \{PROPERTY_VALUE} value1, \{PROPERTY_VALUE} value2, \{PROPERTY_VALUE} value3, \{PROPERTY_VALUE} value4, \{PROPERTY_VALUE} value5, \{PROPERTY_VALUE} value6);
         """
       );
@@ -464,13 +461,13 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (declSigPrim) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, int value);
         """
       );
 
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, double value);
         """
       );
@@ -478,7 +475,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (declSigString) {
       result.add(
-        code."""
+          code."""
           abstract void declaration(\{PROPERTY} name, \{STRING} value);
         """
       );
@@ -517,7 +514,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
         else {
           throw new UnsupportedOperationException(
-            "Implement me :: sig.type=" + signature.getClass().getSimpleName()
+              "Implement me :: sig.type=" + signature.getClass().getSimpleName()
           );
         }
 
@@ -527,7 +524,7 @@ final class GeneratedCssTemplateStep extends ThisTemplate {
 
     if (funcSig2) {
       result.add(
-        code."""
+          code."""
           abstract void function(\{FUNCTION} name, \{PROPERTY_VALUE} value1, \{PROPERTY_VALUE} value2);
         """
       );

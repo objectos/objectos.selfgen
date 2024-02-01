@@ -20,15 +20,15 @@ import java.util.stream.Collectors;
 import objectos.code.ClassName;
 import objectos.code.Code;
 
-final class BaseApiStep extends ThisTemplate {
+final class BaseTypesStep extends ThisTemplate {
 
-  public BaseApiStep(HtmlSelfGen spec) {
+  public BaseTypesStep(HtmlSelfGen spec) {
     super(spec);
   }
 
   @Override
   final String contents() {
-    className(BASE_API);
+    className(BASE_TYPES);
 
     ClassName iterator;
     iterator = ClassName.of(Iterator.class);
@@ -55,19 +55,11 @@ final class BaseApiStep extends ThisTemplate {
     package \{packageName};
     \{importList}
     /**
-     * Provides the interfaces of the {@link Html} domain-specific language.
+     * Defines the types of the {@link Html} domain-specific language.
      */
     \{GENERATED_MSG}
-    public sealed abstract class \{simpleName} extends Recorder permits BaseAttributes {
-      static final Attribute ATTRIBUTE = new Attribute();
-
-      static final Element ELEMENT = new Element();
-
-      static final Fragment FRAGMENT = new Fragment();
-
-      static final NoOp NOOP = new NoOp();
-
-      \{simpleName}() {}
+    public final class \{simpleName} {
+      private \{simpleName}() {}
 
       /**
        * Represents an instruction that generates part of the output of an HTML template.
@@ -127,42 +119,50 @@ final class BaseApiStep extends ThisTemplate {
           \{iterator}<String> classNames();
         }
       }
-      
+
       /**
        * The attribute instruction.
        */
-      private static final class Attribute
-          implements 
+      static final class AttributeInstruction
+          implements
     \{extendsAttribute()},
           GlobalAttribute {
-        private Attribute() {}
+        static final AttributeInstruction INSTANCE = new AttributeInstruction();
+
+        private AttributeInstruction() {}
       }
 
       /**
        * The element instruction.
        */
-      private static final class Element
+      public static final class ElementInstruction
           implements
     \{extendsElementContents()} {
-        private Element() {}
+        static final ElementInstruction INSTANCE = new ElementInstruction();
+
+        private ElementInstruction() {}
       }
 
       /**
        * The fragment instruction.
        */
-      private static final class Fragment
+      public static final class FragmentInstruction
           implements
     \{extendsAll} {
-        private Fragment() {}
+        static final FragmentInstruction INSTANCE = new FragmentInstruction();
+
+        private FragmentInstruction() {}
       }
 
       /**
        * The no-op instruction.
        */
-      private static final class NoOp
+      public static final class NoOpInstruction
           implements
     \{extendsAll} {
-        private NoOp() {}
+        static final NoOpInstruction INSTANCE = new NoOpInstruction();
+
+        private NoOpInstruction() {}
       }
     }
     """;
@@ -174,13 +174,13 @@ final class BaseApiStep extends ThisTemplate {
 
     for (var element : spec.elements()) {
       ClassName thisClassName;
-      thisClassName = element.instructionClassName;
+      thisClassName = element.instructionClassName2;
 
       String thisSimpleName;
       thisSimpleName = thisClassName.simpleName();
 
       sb.append(
-        code."""
+          code."""
           /**
            * Allowed as a child of the {@code \{element.name()}} element.
            */
@@ -199,7 +199,7 @@ final class BaseApiStep extends ThisTemplate {
 
     for (var attribute : spec.attributes()) {
       ClassName thisClassName;
-      thisClassName = attribute.instructionClassName;
+      thisClassName = attribute.instructionClassName2;
 
       if (thisClassName == null) {
         continue;
@@ -209,16 +209,16 @@ final class BaseApiStep extends ThisTemplate {
       thisSimpleName = thisClassName.simpleName();
 
       String superTypes;
-      superTypes = attribute.elementInstructionMap
-        .values()
-        .stream()
-        .map(ClassName::simpleName)
-        .collect(Collectors.joining(",\n"));
+      superTypes = attribute.elementInstructionMap2
+          .values()
+          .stream()
+          .map(ClassName::simpleName)
+          .collect(Collectors.joining(",\n"));
 
       superTypes = Code.indent(superTypes, 6);
 
       sb.append(
-        code."""
+          code."""
           /**
            * The {@code \{attribute.name()}} attribute.
            */
@@ -235,16 +235,16 @@ final class BaseApiStep extends ThisTemplate {
 
   private String extendsAll() {
     String all = spec.elements().stream()
-      .map(spec -> spec.instructionClassName)
-      .map(ClassName::simpleName)
-      .collect(Collectors.joining(",\n"));
+        .map(spec -> spec.instructionClassName2)
+        .map(ClassName::simpleName)
+        .collect(Collectors.joining(",\n"));
 
     return Code.indent(all, 6);
   }
-  
+
   private String extendsAttribute() {
     String s = spec.attributes().stream()
-        .map(spec -> spec.instructionClassName)
+        .map(spec -> spec.instructionClassName2)
         .filter(cn -> cn != null)
         .map(ClassName::simpleName)
         .collect(Collectors.joining(",\n"));
@@ -255,7 +255,7 @@ final class BaseApiStep extends ThisTemplate {
   private String extendsElementContents() {
     String s = spec.elements().stream()
         .filter(ElementSpec::hasEndTag)
-        .map(spec -> spec.instructionClassName)
+        .map(spec -> spec.instructionClassName2)
         .map(ClassName::simpleName)
         .collect(Collectors.joining(",\n"));
 

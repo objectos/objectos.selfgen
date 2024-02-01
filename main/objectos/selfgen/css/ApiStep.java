@@ -99,22 +99,22 @@ final class ApiStep extends ThisTemplate {
     """);
 
     result.add(code."""
-      public sealed interface \{MEDIA_FEATURE.simpleName()} extends \{MEDIA_RULE_ELEM} {}
+      public sealed interface \{MEDIA_FEATURE.simpleName()} extends \{MEDIA_RULE_ELEM.simpleName()} {}
     """);
 
     result.add(code."""
-      public sealed interface MediaFeatureOrStyleDeclaration extends \{MEDIA_FEATURE}, \{STYLE_DECLARATION} permits \{INTERNAL_INSTRUCTION} {}
+      public sealed interface MediaFeatureOrStyleDeclaration extends \{MEDIA_FEATURE.simpleName()}, \{STYLE_DECLARATION.simpleName()} permits \{INTERNAL_INSTRUCTION} {}
     """);
 
     ClassName MEDIA_TYPE;
     MEDIA_TYPE = ClassName.of(CSS_INTERNAL, "MediaType");
 
     result.add(code."""
-      public sealed interface MediaQuery extends \{MEDIA_RULE_ELEM} permits \{MEDIA_TYPE} {}
+      public sealed interface MediaQuery extends \{MEDIA_RULE_ELEM.simpleName()} permits \{MEDIA_TYPE} {}
     """);
 
     result.add(code."""
-      public sealed interface \{STYLE_RULE.simpleName()} extends \{MEDIA_RULE_ELEM} permits \{INTERNAL_INSTRUCTION} {}
+      public sealed interface \{STYLE_RULE.simpleName()} extends \{MEDIA_RULE_ELEM.simpleName()} permits \{INTERNAL_INSTRUCTION} {}
     """);
 
     result.add(code."""
@@ -122,7 +122,7 @@ final class ApiStep extends ThisTemplate {
     """);
 
     result.add(code."""
-      public sealed interface \{STYLE_DECLARATION.simpleName()} extends \{STYLE_RULE_ELEM} {}
+      public sealed interface \{STYLE_DECLARATION.simpleName()} extends \{STYLE_RULE_ELEM.simpleName()} {}
     """);
 
     FilterFunction filterFunction;
@@ -142,18 +142,18 @@ final class ApiStep extends ThisTemplate {
         ClassName className;
         className = property.declarationClassName;
 
-        superTypes.add(code."\{className}");
+        superTypes.add(className.simpleName());
 
         result.add(code."""
-          public sealed interface \{className.simpleName()} extends \{STYLE_DECLARATION} {}
+          public sealed interface \{className.simpleName()} extends \{STYLE_DECLARATION.simpleName()} {}
         """);
 
         className = property.hashClassName;
 
-        superTypes.add(code."\{className}");
+        superTypes.add(className.simpleName());
 
         result.add(code."""
-          public sealed interface \{className.simpleName()} extends \{STYLE_DECLARATION} {}
+          public sealed interface \{className.simpleName()} extends \{STYLE_DECLARATION.simpleName()} {}
         """);
       }
 
@@ -161,10 +161,10 @@ final class ApiStep extends ThisTemplate {
         ClassName className;
         className = property.declarationClassName;
 
-        superTypes.add(code."\{className}");
+        superTypes.add(className.simpleName());
 
         result.add(code."""
-          public sealed interface \{className.simpleName()} extends \{FILTER_FUNCTION}, \{STYLE_DECLARATION} {}
+          public sealed interface \{className.simpleName()} extends \{FILTER_FUNCTION.simpleName()}, \{STYLE_DECLARATION.simpleName()} {}
         """);
       }
     }
@@ -179,14 +179,14 @@ final class ApiStep extends ThisTemplate {
 
 	private void selectors(List<String> result) {
     result.add(code."""
-      public sealed interface \{SELECTOR.simpleName()} extends \{STYLE_RULE_ELEM} {}
+      public sealed interface \{SELECTOR.simpleName()} extends \{STYLE_RULE_ELEM.simpleName()} {}
     """);
 
     ClassName COMBINATOR;
     COMBINATOR = ClassName.of(CSS_INTERNAL, "Combinator");
 
     result.add(code."""
-      public sealed interface \{SELECTOR_INSTRUCTION.simpleName()} extends \{SELECTOR} permits ExternalClassSelector, ExternalIdSelector, \{COMBINATOR}, \{INTERNAL_INSTRUCTION}, \{STANDARD_NAME}, \{STANDARD_PSEUDO_CLASS_SELECTOR}, \{STANDARD_PSEUDO_ELEMENT_SELECTOR}, \{STANDARD_TYPE_SELECTOR} {}
+      public sealed interface \{SELECTOR_INSTRUCTION.simpleName()} extends \{SELECTOR.simpleName()} permits ExternalClassSelector, ExternalIdSelector, \{COMBINATOR}, \{INTERNAL_INSTRUCTION}, \{STANDARD_NAME}, \{STANDARD_PSEUDO_CLASS_SELECTOR}, \{STANDARD_PSEUDO_ELEMENT_SELECTOR}, \{STANDARD_TYPE_SELECTOR} {}
 
       public non-sealed interface ExternalClassSelector extends \{SELECTOR_INSTRUCTION.simpleName()} {}
 
@@ -209,7 +209,7 @@ final class ApiStep extends ThisTemplate {
       ClassName className;
       className = valueType.className;
 
-      superTypes.add(code."      \{className}");
+      superTypes.add(code."      \{className.simpleName()}");
 
       Collection<ClassName> types;
       types = valueType.superTypes();
@@ -217,7 +217,7 @@ final class ApiStep extends ThisTemplate {
       String extendsClause;
 
       if (types.isEmpty()) {
-        extendsClause = code."\{PROPERTY_VALUE}";
+        extendsClause = PROPERTY_VALUE.simpleName();
       } else {
         extendsClause = extendsClause(types);
       }
@@ -256,7 +256,7 @@ final class ApiStep extends ThisTemplate {
       ClassName cn;
       cn = sorted.get(i);
 
-      names.add(code."\{cn}");
+      names.add(cn.simpleName());
     }
 
     return names.stream().collect(Collectors.joining(", "));
@@ -273,7 +273,7 @@ final class ApiStep extends ThisTemplate {
       ClassName className;
       className = function.className;
 
-      superTypes.add(code."      \{className}");
+      superTypes.add(code."      \{className.simpleName()}");
 
       String extendsClause;
       extendsClause = extendsClause(function.interfaces);
@@ -312,7 +312,7 @@ final class ApiStep extends ThisTemplate {
       ClassName className;
       className = keywordName.className();
 
-      superTypes.add(code."      \{className}");
+      superTypes.add(code."      \{className.simpleName()}");
 
       String extendsClause;
       extendsClause = extendsClause(keywordName.superTypes());
@@ -363,7 +363,7 @@ final class ApiStep extends ThisTemplate {
     extendsClause = extendsClause(lengthType.interfaces);
 
     result.add(code."""
-      public sealed interface \{LENGTH_VALUE.simpleName()} extends \{extendsClause} permits \{INTERNAL_INSTRUCTION}, \{LENGTH}, \{ZERO} {}
+      public sealed interface \{LENGTH_VALUE.simpleName()} extends \{extendsClause} permits \{INTERNAL_INSTRUCTION}, \{LENGTH}, \{ZERO.simpleName()} {}
     """);
   }
 
@@ -379,7 +379,7 @@ final class ApiStep extends ThisTemplate {
     extendsClause = extendsClause(percentageType.interfaces);
 
     result.add(code."""
-      public sealed interface \{PERCENTAGE_VALUE.simpleName()} extends \{extendsClause} permits \{INTERNAL_INSTRUCTION}, \{PERCENTAGE}, \{ZERO} {}
+      public sealed interface \{PERCENTAGE_VALUE.simpleName()} extends \{extendsClause} permits \{INTERNAL_INSTRUCTION}, \{PERCENTAGE}, \{ZERO.simpleName()} {}
     """);
   }
 

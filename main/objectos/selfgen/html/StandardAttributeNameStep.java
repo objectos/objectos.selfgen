@@ -18,9 +18,6 @@ package objectos.selfgen.html;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import objectos.code.ClassName;
-import objectos.code.Code;
-import objectos.code.Code.ImportList;
 
 final class StandardAttributeNameStep extends ThisTemplate {
 
@@ -121,7 +118,7 @@ final class StandardAttributeNameStep extends ThisTemplate {
       htmlName = attribute.name();
 
       constants.add(
-        code."  \{javaName}(\{ATTRIBUTE_KIND}.\{kind}, \"\{htmlName}\")"
+          code."  \{javaName}(\{ATTRIBUTE_KIND}.\{kind}, \"\{htmlName}\")"
       );
     }
 
@@ -140,7 +137,7 @@ final class StandardAttributeNameStep extends ThisTemplate {
       constantName = attribute.constantName;
 
       sb.append(
-        code."""
+          code."""
             builder.put("\{name}", \{constantName});
         """
       );

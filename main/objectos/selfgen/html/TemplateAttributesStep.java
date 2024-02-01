@@ -20,22 +20,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
-final class BaseAttributeDslStep extends ThisTemplate {
-	public BaseAttributeDslStep(HtmlSelfGen spec) {
-		super(spec);
-	}
+final class TemplateAttributesStep extends ThisTemplate {
+  public TemplateAttributesStep(HtmlSelfGen spec) {
+    super(spec);
+  }
 
-	@Override
+  @Override
   final String contents() {
     className(
-      ClassName.of("objectos.html", "BaseAttributeDsl")
-    );
-
-    ClassName CLIP_PATH_ATTRIBUTE = ClassName.of(API, "ClipPathAttribute");
+        ClassName.of("objectos.html", "TemplateAttributes")
+  );
 
     return code."""
     /*
-     * Copyright (C) 2015-2023 Objectos Software LTDA.
+     * Copyright (C) \{COPYRIGHT_YEARS} Objectos Software LTDA.
      *
      * Licensed under the Apache License, Version 2.0 (the "License");
      * you may not use this file except in compliance with the License.
@@ -52,11 +50,13 @@ final class BaseAttributeDslStep extends ThisTemplate {
     package \{packageName};
     \{importList}
     /**
-     * Provides methods for rendering HTML attributes.
+     * Provides methods for rendering HTML attributes in templates.
      */
     \{GENERATED_MSG}
-    public sealed abstract class \{simpleName} permits BaseElementDsl {
-      \{simpleName} () {}
+    public sealed abstract class \{simpleName} permits TemplateElements {
+      Html html;
+
+      \{simpleName}() {}
 
     \{attributes()}
       /**
@@ -68,20 +68,13 @@ final class BaseAttributeDslStep extends ThisTemplate {
        * @return an instruction representing this attribute.
        */
       protected final \{CLIP_PATH_ATTRIBUTE} clipPath(String value) {
-        api().attribute(\{STD_ATTR_NAME}.CLIPPATH, value);
-        return \{API}.ATTRIBUTE;
+        return html.clipPath(value);
       }
-
-      abstract \{HTML_TEMPLATE_API} api();
-
-      abstract void attribute(\{ATTRIBUTE_NAME} name);
-
-      abstract void attribute(\{ATTRIBUTE_NAME} name, String value);
     }
     """;
   }
 
-	private String attributes() {
+  private String attributes() {
     List<String> methods;
     methods = new ArrayList<>();
 
@@ -95,29 +88,25 @@ final class BaseAttributeDslStep extends ThisTemplate {
         }
 
         ClassName returnType;
-        returnType = attribute.instructionClassName;
+        returnType = attribute.instructionClassName2;
 
         if (returnType == null) {
           if (attribute.global()) {
-            returnType = GLOBAL_ATTRIBUTE;
+            returnType = GLOBAL_ATTRIBUTE2;
           } else {
-            returnType = attribute.elementInstructionMap
+            returnType = attribute.elementInstructionMap2
                 .values()
                 .iterator()
                 .next();
           }
         }
 
-        String constantName;
-        constantName = attribute.constantName;
-
         AttributeKind kind;
         kind = attribute.kind();
 
         if (kind.isString()) {
 
-          methods.add(
-            code."""
+          methods.add(code."""
               /**
                * Generates the {@code \{attribute.name()}} attribute with the specified value.
                *
@@ -127,27 +116,22 @@ final class BaseAttributeDslStep extends ThisTemplate {
                * @return an instruction representing this attribute.
                */
               protected final \{returnType} \{name}(String value) {
-                attribute(\{STD_ATTR_NAME}.\{constantName}, value);
-                return \{API}.ATTRIBUTE;
+                return html.\{name}(value);
               }
-            """
-         );
+            """);
 
         } else {
 
-          methods.add(
-            code."""
+              methods.add(code."""
               /**
                * Generates the {@code \{attribute.name()}} boolean attribute.
                *
                * @return an instruction representing this attribute.
                */
               protected final \{returnType} \{name}() {
-                attribute(\{STD_ATTR_NAME}.\{constantName});
-                return \{API}.ATTRIBUTE;
+                return html.\{name}();
               }
-            """
-         );
+            """);
 
         }
       }

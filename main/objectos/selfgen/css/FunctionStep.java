@@ -18,7 +18,6 @@ package objectos.selfgen.css;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 final class FunctionStep extends ThisTemplate {
@@ -90,7 +89,7 @@ final class FunctionStep extends ThisTemplate {
       f = sorted.get(i);
 
       result.add(
-        code."  \{f.constantName}(\"\{f.functionName}\")"
+          code."  \{f.constantName}(\"\{f.functionName}\")"
       );
     }
 

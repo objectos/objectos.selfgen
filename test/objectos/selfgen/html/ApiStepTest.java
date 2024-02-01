@@ -21,35 +21,35 @@ import org.testng.annotations.Test;
 
 public class ApiStepTest {
 
-	@Test
-	public void execute() {
-		HtmlSelfGen spec;
-		spec = new HtmlSelfGen() {
-			@Override
-			protected final void definition() {
-				element("a").simpleName("Anchor");
+  @Test
+  public void execute() {
+    HtmlSelfGen spec;
+    spec = new HtmlSelfGen() {
+      @Override
+      protected final void definition() {
+        element("a").simpleName("Anchor");
 
-				element("div");
+        element("div");
 
-				element("meta")
-						.noEndTag();
+        element("meta")
+            .noEndTag();
 
-				element("option")
-						.attribute("disabled").booleanType()
-						.attribute("label");
+        element("option")
+            .attribute("disabled").booleanType()
+            .attribute("label");
 
-				element("select")
-						.attribute("disabled").booleanType();
-			}
-		}.prepare();
+        element("select")
+            .attribute("disabled").booleanType();
+      }
+    }.prepare();
 
-		ApiStep template;
-		template = new ApiStep(spec);
+    ApiStep template;
+    template = new ApiStep(spec);
 
-		assertEquals(
-				template.toString(),
+    assertEquals(
+        template.toString(),
 
-				"""
+        """
 /*
  * Copyright (C) 2015-2023 Objectos Software LTDA.
  *
@@ -229,7 +229,7 @@ public final class Api {
   }
 }
 """
-		);
-	}
+    );
+  }
 
 }

@@ -21,17 +21,16 @@ import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
 final class BaseAttributesStep extends ThisTemplate {
+
+  static final ClassName ATTRIBUTE_INSTRUCTION = ClassName.of(BASE_TYPES, "AttributeInstruction");
+
   public BaseAttributesStep(HtmlSelfGen spec) {
     super(spec);
   }
 
   @Override
   final String contents() {
-    className(
-      ClassName.of("objectos.html", "BaseAttributes")
-    );
-
-    ClassName CLIP_PATH_ATTRIBUTE = ClassName.of(BASE_API, "ClipPathAttribute");
+    className(ClassName.of(HTML_PACKAGE, "BaseAttributes"));
 
     return code."""
     /*
@@ -55,7 +54,7 @@ final class BaseAttributesStep extends ThisTemplate {
      * Provides methods for rendering HTML attributes.
      */
     \{GENERATED_MSG}
-    public sealed abstract class \{simpleName} extends \{BASE_API} permits BaseElements {
+    public sealed abstract class \{simpleName} extends Recorder permits BaseElements {
       \{simpleName}() {}
 
     \{attributes()}
@@ -69,7 +68,7 @@ final class BaseAttributesStep extends ThisTemplate {
        */
       public final \{CLIP_PATH_ATTRIBUTE} clipPath(String value) {
         attribute(\{STD_ATTR_NAME}.CLIPPATH, value);
-        return ATTRIBUTE;
+        return \{ATTRIBUTE_INSTRUCTION}.INSTANCE;
       }
     }
     """;
@@ -110,8 +109,7 @@ final class BaseAttributesStep extends ThisTemplate {
 
         if (kind.isString()) {
 
-          methods.add(
-            code."""
+          methods.add(code."""
               /**
                * Generates the {@code \{attribute.name()}} attribute with the specified value.
                *
@@ -122,15 +120,13 @@ final class BaseAttributesStep extends ThisTemplate {
                */
               public final \{returnType} \{name}(String value) {
                 attribute(\{STD_ATTR_NAME}.\{constantName}, value);
-                return ATTRIBUTE;
+                return \{ATTRIBUTE_INSTRUCTION}.INSTANCE;
               }
-            """
-         );
+            """);
 
         } else {
 
-          methods.add(
-            code."""
+              methods.add(code."""
               /**
                * Generates the {@code \{attribute.name()}} boolean attribute.
                *
@@ -138,10 +134,9 @@ final class BaseAttributesStep extends ThisTemplate {
                */
               public final \{returnType} \{name}() {
                 attribute(\{STD_ATTR_NAME}.\{constantName});
-                return ATTRIBUTE;
+                return \{ATTRIBUTE_INSTRUCTION}.INSTANCE;
               }
-            """
-         );
+            """);
 
         }
       }
