@@ -50,13 +50,9 @@ abstract class AttributeSpec {
 
   public final Map<String, ClassName> interfaceMap = new TreeMap<>();
 
-  final Map<String, ClassName> elementInstructionMap = new TreeMap<>();
+  final Set<String> elements = new TreeSet<>();
 
-  final Map<String, ClassName> elementInstructionMap2 = new TreeMap<>();
-
-  ClassName instructionClassName;
-
-  ClassName instructionClassName2;
+  String instructionSimpleName;
 
   private final Set<AttributeKind> kindSet = new TreeSet<>();
 

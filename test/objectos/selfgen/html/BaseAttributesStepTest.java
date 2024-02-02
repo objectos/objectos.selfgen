@@ -73,11 +73,6 @@ public class BaseAttributesStepTest {
  */
 package objectos.html;
 
-import objectos.html.BaseTypes.AttributeInstruction;
-import objectos.html.BaseTypes.ClipPathAttribute;
-import objectos.html.BaseTypes.DisabledAttribute;
-import objectos.html.BaseTypes.GlobalAttribute;
-import objectos.html.BaseTypes.OptionInstruction;
 import objectos.html.internal.StandardAttributeName;
 
 /**
@@ -92,9 +87,9 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    *
    * @return an instruction representing this attribute.
    */
-  public final DisabledAttribute disabled() {
+  public final Api.DisabledAttribute disabled() {
     attribute(StandardAttributeName.DISABLED);
-    return AttributeInstruction.INSTANCE;
+    return Api.ATTRIBUTE;
   }
 
   /**
@@ -105,9 +100,9 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    *
    * @return an instruction representing this attribute.
    */
-  public final OptionInstruction label(String value) {
+  public final Api.OptionValue label(String value) {
     attribute(StandardAttributeName.LABEL, value);
-    return AttributeInstruction.INSTANCE;
+    return Api.ATTRIBUTE;
   }
 
   /**
@@ -118,9 +113,9 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    *
    * @return an instruction representing this attribute.
    */
-  public final GlobalAttribute lang(String value) {
+  public final Api.GlobalAttribute lang(String value) {
     attribute(StandardAttributeName.LANG, value);
-    return AttributeInstruction.INSTANCE;
+    return Api.ATTRIBUTE;
   }
 
   /**
@@ -131,9 +126,9 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    *
    * @return an instruction representing this attribute.
    */
-  public final ClipPathAttribute clipPath(String value) {
+  public final Api.ClipPathAttribute clipPath(String value) {
     attribute(StandardAttributeName.CLIPPATH, value);
-    return AttributeInstruction.INSTANCE;
+    return Api.ATTRIBUTE;
   }
 }
 """

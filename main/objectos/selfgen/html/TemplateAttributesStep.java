@@ -27,9 +27,7 @@ final class TemplateAttributesStep extends ThisTemplate {
 
   @Override
   final String contents() {
-    className(
-        ClassName.of("objectos.html", "TemplateAttributes")
-  );
+    className(ClassName.of(HTML_PACKAGE, "TemplateAttributes"));
 
     return code."""
     /*
@@ -54,8 +52,6 @@ final class TemplateAttributesStep extends ThisTemplate {
      */
     \{GENERATED_MSG}
     public sealed abstract class \{simpleName} permits TemplateElements {
-      Html html;
-
       \{simpleName}() {}
 
     \{attributes()}
@@ -67,9 +63,11 @@ final class TemplateAttributesStep extends ThisTemplate {
        *
        * @return an instruction representing this attribute.
        */
-      protected final \{CLIP_PATH_ATTRIBUTE} clipPath(String value) {
-        return html.clipPath(value);
+      protected final \{API}.\{CLIP_PATH_ATTRIBUTE.simpleName()} clipPath(String value) {
+        return $html().clipPath(value);
       }
+
+      abstract Html $html();
     }
     """;
   }
@@ -87,15 +85,14 @@ final class TemplateAttributesStep extends ThisTemplate {
           continue;
         }
 
-        ClassName returnType;
-        returnType = attribute.instructionClassName2;
+        String returnName;
+        returnName = attribute.instructionSimpleName;
 
-        if (returnType == null) {
+        if (returnName == null) {
           if (attribute.global()) {
-            returnType = GLOBAL_ATTRIBUTE2;
+            returnName = GLOBAL_ATTRIBUTE2.simpleName();
           } else {
-            returnType = attribute.elementInstructionMap2
-                .values()
+            returnName = attribute.elements
                 .iterator()
                 .next();
           }
@@ -115,8 +112,8 @@ final class TemplateAttributesStep extends ThisTemplate {
                *
                * @return an instruction representing this attribute.
                */
-              protected final \{returnType} \{name}(String value) {
-                return html.\{name}(value);
+              protected final \{API}.\{returnName} \{name}(String value) {
+                return $html().\{name}(value);
               }
             """);
 
@@ -128,8 +125,8 @@ final class TemplateAttributesStep extends ThisTemplate {
                *
                * @return an instruction representing this attribute.
                */
-              protected final \{returnType} \{name}() {
-                return html.\{name}();
+              protected final \{API}.\{returnName} \{name}() {
+                return $html().\{name}();
               }
             """);
 

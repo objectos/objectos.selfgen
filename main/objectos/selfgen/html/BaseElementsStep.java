@@ -56,10 +56,6 @@ final class BaseElementsStep extends ThisTemplate {
       \{simpleName}() {}
 
     \{elements()}
-      /**
-       * Generates the {@code <!DOCTYPE html>} doctype.
-       */
-      public abstract void doctype();
     }
     """;
   }
@@ -75,8 +71,8 @@ final class BaseElementsStep extends ThisTemplate {
       String methodName;
       methodName = element.methodName();
 
-      ClassName paramType;
-      paramType = element.instructionClassName2;
+      String paramTypeName;
+      paramTypeName = element.valueSimpleName;
 
       String constantName;
       constantName = element.constantName;
@@ -91,9 +87,9 @@ final class BaseElementsStep extends ThisTemplate {
            *
            * @return an instruction representing this element.
            */
-          public final \{ELEMENT_INSTRUCTION} \{methodName}(\{paramType}... contents) {
+          public final \{API}.Element \{methodName}(\{API}.\{paramTypeName}... contents) {
             element(\{STD_ELEMENT_NAME}.\{constantName}, contents);
-            return \{ELEMENT_INSTRUCTION}.INSTANCE;
+            return \{API}.ELEMENT;
           }
         """
       );
@@ -110,9 +106,9 @@ final class BaseElementsStep extends ThisTemplate {
              *
              * @return an instruction representing this element.
              */
-            public final \{ELEMENT_INSTRUCTION} \{methodName}(String text) {
+            public final \{API}.Element \{methodName}(String text) {
               element(\{STD_ELEMENT_NAME}.\{constantName}, text);
-              return \{ELEMENT_INSTRUCTION}.INSTANCE;
+              return \{API}.ELEMENT;
             }
           """
         );
@@ -129,9 +125,9 @@ final class BaseElementsStep extends ThisTemplate {
              *
              * @return an instruction representing this attribute or element.
              */
-            public final \{ELEMENT_INSTRUCTION} \{methodName}(String text) {
+            public final \{API}.Element \{methodName}(String text) {
               ambiguous(\{AMBIGUOUS}.\{constantName}, text);
-              return \{ELEMENT_INSTRUCTION}.INSTANCE;
+              return \{API}.ELEMENT;
             }
           """
         );

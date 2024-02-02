@@ -45,31 +45,19 @@ abstract class ThisTemplate {
 
   static final ClassName AMBIGUOUS = ClassName.of(HTML_INTERNAL, "Ambiguous");
 
-  static final ClassName API = ClassName.of(HTML_TMPL, "Api");
+  static final ClassName API = ClassName.of(HTML_PACKAGE, "Api");
 
   static final ClassName ATTRIBUTE_KIND = ClassName.of(HTML_INTERNAL, "AttributeKind");
 
   static final ClassName ATTRIBUTE_NAME = ClassName.of(HTML_INTERNAL, "AttributeName");
 
-  static final ClassName BASE_TYPES = ClassName.of(HTML_PACKAGE, "BaseTypes");
+  static final ClassName CLIP_PATH_ATTRIBUTE = ClassName.of(API, "ClipPathAttribute");
 
-  static final ClassName CLIP_PATH_ATTRIBUTE = ClassName.of(BASE_TYPES, "ClipPathAttribute");
+  static final ClassName INSTRUCTION2 = ClassName.of(API, "Instruction");
 
-  static final ClassName INSTRUCTION = ClassName.of(API, "Instruction");
+  static final ClassName GLOBAL_ATTRIBUTE2 = ClassName.of(API, "GlobalAttribute");
 
-  static final ClassName INSTRUCTION2 = ClassName.of(BASE_TYPES, "Instruction");
-
-  static final ClassName GLOBAL_ATTRIBUTE = ClassName.of(API, "GlobalAttribute");
-
-  static final ClassName GLOBAL_ATTRIBUTE2 = ClassName.of(BASE_TYPES, "GlobalAttribute");
-
-  static final ClassName EXTERNAL_ATTRIBUTE = ClassName.of(API, "ExternalAttribute");
-
-  static final ClassName ELEMENT = ClassName.of(BASE_TYPES, "Element");
-
-  static final ClassName ELEMENT_CONTENTS = ClassName.of(API, "Element");
-
-  static final ClassName ELEMENT_INSTRUCTION = ClassName.of(BASE_TYPES, "ElementInstruction");
+  static final ClassName ELEMENT = ClassName.of(API, "Element");
 
   static final ClassName HTML_TEMPLATE_API = ClassName.of(HTML_INTERNAL, "HtmlTemplateApi");
 

@@ -73,12 +73,6 @@ public class BaseElementsStepTest {
  */
 package objectos.html;
 
-import objectos.html.BaseTypes.AnchorInstruction;
-import objectos.html.BaseTypes.ElementInstruction;
-import objectos.html.BaseTypes.MetaInstruction;
-import objectos.html.BaseTypes.OptionInstruction;
-import objectos.html.BaseTypes.SelectInstruction;
-import objectos.html.BaseTypes.TitleInstruction;
 import objectos.html.internal.Ambiguous;
 import objectos.html.internal.StandardElementName;
 
@@ -97,9 +91,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction a(AnchorInstruction... contents) {
+  public final Api.Element a(Api.AnchorValue... contents) {
     element(StandardElementName.A, contents);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -110,9 +104,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction a(String text) {
+  public final Api.Element a(String text) {
     element(StandardElementName.A, text);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -123,9 +117,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction meta(MetaInstruction... contents) {
+  public final Api.Element meta(Api.MetaValue... contents) {
     element(StandardElementName.META, contents);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -136,9 +130,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction option(OptionInstruction... contents) {
+  public final Api.Element option(Api.OptionValue... contents) {
     element(StandardElementName.OPTION, contents);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -149,9 +143,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction option(String text) {
+  public final Api.Element option(String text) {
     element(StandardElementName.OPTION, text);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -162,9 +156,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction select(SelectInstruction... contents) {
+  public final Api.Element select(Api.SelectValue... contents) {
     element(StandardElementName.SELECT, contents);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -175,9 +169,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction select(String text) {
+  public final Api.Element select(String text) {
     element(StandardElementName.SELECT, text);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -188,9 +182,9 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this element.
    */
-  public final ElementInstruction title(TitleInstruction... contents) {
+  public final Api.Element title(Api.TitleValue... contents) {
     element(StandardElementName.TITLE, contents);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
   /**
@@ -201,15 +195,11 @@ public sealed abstract class BaseElements extends BaseAttributes permits Html {
    *
    * @return an instruction representing this attribute or element.
    */
-  public final ElementInstruction title(String text) {
+  public final Api.Element title(String text) {
     ambiguous(Ambiguous.TITLE, text);
-    return ElementInstruction.INSTANCE;
+    return Api.ELEMENT;
   }
 
-  /**
-   * Generates the {@code <!DOCTYPE html>} doctype.
-   */
-  public abstract void doctype();
 }
 """
     );

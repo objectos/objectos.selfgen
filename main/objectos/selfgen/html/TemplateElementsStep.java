@@ -27,9 +27,7 @@ final class TemplateElementsStep extends ThisTemplate {
 
   @Override
   final String contents() {
-    className(
-        ClassName.of("objectos.html", "TemplateElements")
-  );
+    className(ClassName.of(HTML_PACKAGE, "TemplateElements"));
 
     return code."""
     /*
@@ -53,7 +51,7 @@ final class TemplateElementsStep extends ThisTemplate {
      * Provides methods for rendering HTML elements in templates.
      */
     \{GENERATED_MSG}
-    public sealed abstract class \{simpleName} extends TemplateAttributes permits TemplateUtilities {
+    public sealed abstract class \{simpleName} extends TemplateAttributes permits TemplateBase {
       \{simpleName}() {}
 
     \{elements()}
@@ -61,7 +59,7 @@ final class TemplateElementsStep extends ThisTemplate {
        * Generates the {@code <!DOCTYPE html>} doctype.
        */
       protected final void doctype() {
-        html.doctype();
+        $html().doctype();
       }
     }
     """;
@@ -78,8 +76,8 @@ final class TemplateElementsStep extends ThisTemplate {
       String methodName;
       methodName = element.methodName();
 
-      ClassName paramType;
-      paramType = element.instructionClassName2;
+      String paramTypeName;
+      paramTypeName = element.valueSimpleName;
 
       methods.add(code."""
           /**
@@ -90,8 +88,8 @@ final class TemplateElementsStep extends ThisTemplate {
            *
            * @return an instruction representing this element.
            */
-          protected final \{ELEMENT_INSTRUCTION} \{methodName}(\{paramType}... contents) {
-            return html.\{methodName}(contents);
+          protected final \{API}.Element \{methodName}(\{API}.\{paramTypeName}... contents) {
+            return $html().\{methodName}(contents);
           }
         """);
 
@@ -106,8 +104,8 @@ final class TemplateElementsStep extends ThisTemplate {
              *
              * @return an instruction representing this element.
              */
-            protected final \{ELEMENT_INSTRUCTION} \{methodName}(String text) {
-              return html.\{methodName}(text);
+            protected final \{API}.Element \{methodName}(String text) {
+              return $html().\{methodName}(text);
             }
           """);
 
@@ -122,8 +120,8 @@ final class TemplateElementsStep extends ThisTemplate {
              *
              * @return an instruction representing this attribute or element.
              */
-            protected final \{ELEMENT_INSTRUCTION} \{methodName}(String text) {
-              return html.\{methodName}(text);
+            protected final \{API}.Element \{methodName}(String text) {
+              return $html().\{methodName}(text);
             }
           """);
 

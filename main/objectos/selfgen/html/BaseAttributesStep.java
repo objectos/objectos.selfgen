@@ -22,8 +22,6 @@ import objectos.code.ClassName;
 
 final class BaseAttributesStep extends ThisTemplate {
 
-  static final ClassName ATTRIBUTE_INSTRUCTION = ClassName.of(BASE_TYPES, "AttributeInstruction");
-
   public BaseAttributesStep(HtmlSelfGen spec) {
     super(spec);
   }
@@ -66,9 +64,9 @@ final class BaseAttributesStep extends ThisTemplate {
        *
        * @return an instruction representing this attribute.
        */
-      public final \{CLIP_PATH_ATTRIBUTE} clipPath(String value) {
+      public final \{API}.\{CLIP_PATH_ATTRIBUTE.simpleName()} clipPath(String value) {
         attribute(\{STD_ATTR_NAME}.CLIPPATH, value);
-        return \{ATTRIBUTE_INSTRUCTION}.INSTANCE;
+        return \{API}.ATTRIBUTE;
       }
     }
     """;
@@ -87,15 +85,14 @@ final class BaseAttributesStep extends ThisTemplate {
           continue;
         }
 
-        ClassName returnType;
-        returnType = attribute.instructionClassName2;
+        String returnName;
+        returnName = attribute.instructionSimpleName;
 
-        if (returnType == null) {
+        if (returnName == null) {
           if (attribute.global()) {
-            returnType = GLOBAL_ATTRIBUTE2;
+            returnName = GLOBAL_ATTRIBUTE2.simpleName();
           } else {
-            returnType = attribute.elementInstructionMap2
-                .values()
+            returnName = attribute.elements
                 .iterator()
                 .next();
           }
@@ -118,9 +115,9 @@ final class BaseAttributesStep extends ThisTemplate {
                *
                * @return an instruction representing this attribute.
                */
-              public final \{returnType} \{name}(String value) {
+              public final \{API}.\{returnName} \{name}(String value) {
                 attribute(\{STD_ATTR_NAME}.\{constantName}, value);
-                return \{ATTRIBUTE_INSTRUCTION}.INSTANCE;
+                return \{API}.ATTRIBUTE;
               }
             """);
 
@@ -132,9 +129,9 @@ final class BaseAttributesStep extends ThisTemplate {
                *
                * @return an instruction representing this attribute.
                */
-              public final \{returnType} \{name}() {
+              public final \{API}.\{returnName} \{name}() {
                 attribute(\{STD_ATTR_NAME}.\{constantName});
-                return \{ATTRIBUTE_INSTRUCTION}.INSTANCE;
+                return \{API}.ATTRIBUTE;
               }
             """);
 

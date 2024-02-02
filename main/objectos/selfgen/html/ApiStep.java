@@ -38,7 +38,7 @@ final class ApiStep extends ThisTemplate {
 
     return code."""
     /*
-     * Copyright (C) 2015-2023 Objectos Software LTDA.
+     * Copyright (C) \{COPYRIGHT_YEARS} Objectos Software LTDA.
      *
      * Licensed under the Apache License, Version 2.0 (the "License");
      * you may not use this file except in compliance with the License.
@@ -55,19 +55,19 @@ final class ApiStep extends ThisTemplate {
     package \{packageName};
     \{importList}
     /**
-     * Provides the interfaces of the {@link objectos.html.HtmlTemplate} domain-specific language.
+     * Defines the types of the {@link Html} domain-specific language.
      */
     \{GENERATED_MSG}
     public final class \{simpleName} {
-      public static final Attribute ATTRIBUTE = new Attribute();
+      static final Attribute ATTRIBUTE = new Attribute();
 
-      public static final Element ELEMENT = new Element();
+      static final Element ELEMENT = new Element();
 
-      public static final Fragment FRAGMENT = new Fragment();
+      static final Fragment FRAGMENT = new Fragment();
 
-      public static final NoOp NOOP = new NoOp();
+      static final NoOp NOOP = new NoOp();
 
-      private \{simpleName} () {}
+      private \{simpleName}() {}
 
       /**
        * Represents an instruction that generates part of the output of an HTML template.
@@ -131,11 +131,11 @@ final class ApiStep extends ThisTemplate {
       /**
        * The attribute instruction.
        */
-      public static final class Attribute
+      static final class Attribute
           implements
     \{extendsAttribute()},
-          \{GLOBAL_ATTRIBUTE.simpleName()} {
-        private Attribute() {}
+          GlobalAttribute {
+        Attribute() {}
       }
 
       /**
@@ -144,7 +144,7 @@ final class ApiStep extends ThisTemplate {
       public static final class Element
           implements
     \{extendsElementContents()} {
-        private Element() {}
+        Element() {}
       }
 
       /**
@@ -153,7 +153,7 @@ final class ApiStep extends ThisTemplate {
       public static final class Fragment
           implements
     \{extendsAll} {
-        private Fragment() {}
+        Fragment() {}
       }
 
       /**
@@ -173,18 +173,15 @@ final class ApiStep extends ThisTemplate {
     sb = new StringBuilder();
 
     for (var element : spec.elements()) {
-      ClassName thisClassName;
-      thisClassName = element.instructionClassName;
-
       String thisSimpleName;
-      thisSimpleName = thisClassName.simpleName();
+      thisSimpleName = element.valueSimpleName;
 
       sb.append(
           code."""
           /**
-           * Allowed as a child of the {@code \{element.name()}} element.
+           * Allowed as an argument to the {@code \{element.name()}} element method.
            */
-          public sealed interface \{thisSimpleName} extends \{INSTRUCTION.simpleName()} {}
+          public sealed interface \{thisSimpleName} extends Instruction {}
 
         """
       );
@@ -198,21 +195,16 @@ final class ApiStep extends ThisTemplate {
     sb = new StringBuilder();
 
     for (var attribute : spec.attributes()) {
-      ClassName thisClassName;
-      thisClassName = attribute.instructionClassName;
+      String thisSimpleName;
+      thisSimpleName = attribute.instructionSimpleName;
 
-      if (thisClassName == null) {
+      if (thisSimpleName == null) {
         continue;
       }
 
-      String thisSimpleName;
-      thisSimpleName = thisClassName.simpleName();
-
       String superTypes;
-      superTypes = attribute.elementInstructionMap
-          .values()
+      superTypes = attribute.elements
           .stream()
-          .map(ClassName::simpleName)
           .collect(Collectors.joining(",\n"));
 
       superTypes = Code.indent(superTypes, 6);
@@ -235,8 +227,7 @@ final class ApiStep extends ThisTemplate {
 
   private String extendsAll() {
     String all = spec.elements().stream()
-        .map(spec -> spec.instructionClassName)
-        .map(ClassName::simpleName)
+        .map(spec -> spec.valueSimpleName)
         .collect(Collectors.joining(",\n"));
 
     return Code.indent(all, 6);
@@ -244,9 +235,8 @@ final class ApiStep extends ThisTemplate {
 
   private String extendsAttribute() {
     String s = spec.attributes().stream()
-        .map(spec -> spec.instructionClassName)
-        .filter(cn -> cn != null)
-        .map(ClassName::simpleName)
+        .map(spec -> spec.instructionSimpleName)
+        .filter(simpleName -> simpleName != null)
         .collect(Collectors.joining(",\n"));
 
     return Code.indent(s, 6);
@@ -255,8 +245,7 @@ final class ApiStep extends ThisTemplate {
   private String extendsElementContents() {
     String s = spec.elements().stream()
         .filter(ElementSpec::hasEndTag)
-        .map(spec -> spec.instructionClassName)
-        .map(ClassName::simpleName)
+        .map(spec -> spec.valueSimpleName)
         .collect(Collectors.joining(",\n"));
 
     return Code.indent(s, 6);

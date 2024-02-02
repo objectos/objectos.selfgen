@@ -30,9 +30,7 @@ public final class ElementSpec
 
   public String constantName;
 
-  public ClassName instructionClassName;
-
-  public ClassName instructionClassName2;
+  public String valueSimpleName;
 
   private ElementAttributeSpec attribute;
 
@@ -178,9 +176,7 @@ public final class ElementSpec
 
     constantName = JavaNames.toIdentifier(name.toUpperCase());
 
-    instructionClassName = ClassName.of(ThisTemplate.API, simpleName + "Instruction");
-
-    instructionClassName2 = ClassName.of(ThisTemplate.BASE_TYPES, simpleName + "Instruction");
+    valueSimpleName = simpleName + "Value";
 
     return this;
   }
