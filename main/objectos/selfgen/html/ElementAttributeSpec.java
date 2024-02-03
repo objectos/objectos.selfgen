@@ -23,10 +23,6 @@ class ElementAttributeSpec extends AttributeSpec {
 
   @Override
   final ElementAttributeSpec toElementAttributeSpec(ElementSpec parent) {
-    var className = parent.className;
-
-    interfaceMap.put(className.simpleName(), className);
-
     String childSimpleName;
     childSimpleName = parent.valueSimpleName;
 

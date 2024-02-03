@@ -34,7 +34,6 @@ public class AttributeSpecTest extends AbstractSelfGenHtmlTest {
 
     assertEquals(res.name(), "class");
     assertEquals(res.kindSet(), Set.of(AttributeKind.STRING));
-    assertEquals(res.interfaceSet(), Set.of());
     assertEquals(res.methodNames(), List.of("_class"));
   }
 
@@ -49,7 +48,6 @@ public class AttributeSpecTest extends AbstractSelfGenHtmlTest {
 
     assertEquals(res.name(), "hidden");
     assertEquals(res.kindSet(), Set.of(AttributeKind.BOOLEAN));
-    assertEquals(res.interfaceSet(), Set.of());
     assertEquals(res.methodNames(), List.of("hidden"));
   }
 
@@ -69,10 +67,6 @@ public class AttributeSpecTest extends AbstractSelfGenHtmlTest {
 
     assertEquals(res.name(), "href");
     assertEquals(res.kindSet(), Set.of(AttributeKind.STRING));
-    assertEquals(
-      res.interfaceSet(),
-      Set.of("AValue", "LinkValue")
-    );
   }
 
   @Test
@@ -86,7 +80,6 @@ public class AttributeSpecTest extends AbstractSelfGenHtmlTest {
 
     assertEquals(res.name(), "id");
     assertEquals(res.kindSet(), Set.of(AttributeKind.STRING));
-    assertEquals(res.interfaceSet(), Set.of());
     assertEquals(res.methodNames(), List.of("id"));
   }
 

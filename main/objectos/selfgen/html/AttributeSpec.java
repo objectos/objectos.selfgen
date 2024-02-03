@@ -17,9 +17,7 @@ package objectos.selfgen.html;
 
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import objectos.code.ClassName;
 import objectos.selfgen.util.JavaNames;
@@ -47,8 +45,6 @@ abstract class AttributeSpec {
   public final ClassName className;
 
   public final String constantName;
-
-  public final Map<String, ClassName> interfaceMap = new TreeMap<>();
 
   final Set<String> elements = new TreeSet<>();
 
@@ -92,10 +88,6 @@ abstract class AttributeSpec {
     return false;
   }
 
-  public final Iterable<ClassName> interfaces() {
-    return interfaceMap.values();
-  }
-
   public final AttributeKind kind() {
     Set<AttributeKind> s;
     s = kindSet();
@@ -127,8 +119,6 @@ abstract class AttributeSpec {
   public final String simpleName() {
     return JavaNames.toValidClassName(name);
   }
-
-  final Set<String> interfaceSet() { return interfaceMap.keySet(); }
 
   abstract ElementAttributeSpec toElementAttributeSpec(ElementSpec parent);
 

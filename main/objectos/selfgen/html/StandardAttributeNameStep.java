@@ -31,7 +31,7 @@ final class StandardAttributeNameStep extends ThisTemplate {
 
     return code."""
     /*
-     * Copyright (C) 2015-2023 Objectos Software LTDA.
+     * Copyright (C) \{COPYRIGHT_YEARS} Objectos Software LTDA.
      *
      * Licensed under the Apache License, Version 2.0 (the "License");
      * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ final class StandardAttributeNameStep extends ThisTemplate {
      * TODO
      */
     \{GENERATED_MSG}
-    public enum \{simpleName} implements \{ATTRIBUTE_NAME} {
+    enum \{simpleName} implements \{ATTRIBUTE_NAME} {
     \{constants()}
 
       private static final \{className}[] ARRAY = \{className}.values();

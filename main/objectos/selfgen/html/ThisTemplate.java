@@ -39,17 +39,13 @@ abstract class ThisTemplate {
 
   static final String HTML_PACKAGE = "objectos.html";
 
-  static final String HTML_INTERNAL = "objectos.html.internal";
-
-  static final String HTML_TMPL = "objectos.html.tmpl";
-
-  static final ClassName AMBIGUOUS = ClassName.of(HTML_INTERNAL, "Ambiguous");
+  static final ClassName AMBIGUOUS = ClassName.of(HTML_PACKAGE, "Ambiguous");
 
   static final ClassName API = ClassName.of(HTML_PACKAGE, "Api");
 
-  static final ClassName ATTRIBUTE_KIND = ClassName.of(HTML_INTERNAL, "AttributeKind");
+  static final ClassName ATTRIBUTE_KIND = ClassName.of(HTML_PACKAGE, "AttributeKind");
 
-  static final ClassName ATTRIBUTE_NAME = ClassName.of(HTML_INTERNAL, "AttributeName");
+  static final ClassName ATTRIBUTE_NAME = ClassName.of(HTML_PACKAGE, "AttributeName");
 
   static final ClassName CLIP_PATH_ATTRIBUTE = ClassName.of(API, "ClipPathAttribute");
 
@@ -59,17 +55,15 @@ abstract class ThisTemplate {
 
   static final ClassName ELEMENT = ClassName.of(API, "Element");
 
-  static final ClassName HTML_TEMPLATE_API = ClassName.of(HTML_INTERNAL, "HtmlTemplateApi");
+  static final ClassName NAMES_BUILDER = ClassName.of(HTML_PACKAGE, "NamesBuilder");
 
-  static final ClassName NAMES_BUILDER = ClassName.of(HTML_INTERNAL, "NamesBuilder");
+  static final ClassName STD_ATTR_NAME = ClassName.of(HTML_PACKAGE, "StandardAttributeName");
 
-  static final ClassName STD_ATTR_NAME = ClassName.of(HTML_INTERNAL, "StandardAttributeName");
+  static final ClassName ELEMENT_KIND = ClassName.of(HTML_PACKAGE, "ElementKind");
 
-  static final ClassName ELEMENT_KIND = ClassName.of(HTML_INTERNAL, "ElementKind");
+  static final ClassName ELEMENT_NAME = ClassName.of(HTML_PACKAGE, "ElementName");
 
-  static final ClassName ELEMENT_NAME = ClassName.of(HTML_INTERNAL, "ElementName");
-
-  static final ClassName STD_ELEMENT_NAME = ClassName.of(HTML_INTERNAL, "StandardElementName");
+  static final ClassName STD_ELEMENT_NAME = ClassName.of(HTML_PACKAGE, "StandardElementName");
 
   final HtmlSelfGen spec;
 

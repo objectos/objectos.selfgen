@@ -17,7 +17,6 @@ package objectos.selfgen.html;
 
 import java.util.Set;
 import java.util.TreeSet;
-import objectos.code.ClassName;
 import objectos.selfgen.util.JavaNames;
 
 public final class ElementSpec
@@ -25,8 +24,6 @@ public final class ElementSpec
     Child,
     Comparable<ElementSpec>,
     Name {
-
-  public ClassName className;
 
   public String constantName;
 
@@ -172,8 +169,6 @@ public final class ElementSpec
   }
 
   public final ElementSpec simpleName(String simpleName) {
-    className = ClassName.of(ThisTemplate.HTML_TMPL, simpleName + "Value");
-
     constantName = JavaNames.toIdentifier(name.toUpperCase());
 
     valueSimpleName = simpleName + "Value";
