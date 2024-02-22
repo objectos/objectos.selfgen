@@ -43,7 +43,11 @@ public final class HtmlSpec extends HtmlSelfGen {
         .skipAttribute("clipPath")
         .skipAttribute("form")
         .skipAttribute("label")
-        .skipAttribute("title");
+        .skipAttribute("title")
+
+        .skipAttribute("dataFrame")
+        .skipAttribute("dataFrameValue")
+        .skipAttribute("dataWayClick");
 
     rootElement()
         .attribute("accesskey")
@@ -64,7 +68,11 @@ public final class HtmlSpec extends HtmlSelfGen {
         .attribute("onsubmit")
 
         .attribute("aria-hidden")
-        .attribute("role");
+        .attribute("role")
+
+        .attribute("data-frame")
+        .attribute("data-frame-value")
+        .attribute("data-way-click");
 
     CategorySpec embedded = category("embedded");
     CategorySpec flow = category("flow");
@@ -384,66 +392,66 @@ public final class HtmlSpec extends HtmlSelfGen {
 
     Set<String> svgPresentationProps;
     svgPresentationProps = Set.of(
-      "alignment-baseline",
-      "baseline-shift",
-      "clip-path",
-      "clip-rule",
-      "color",
-      "color-interpolation",
-      "color-interpolation-filters",
-      "cursor",
-      "direction",
-      "display",
-      "dominant-baseline",
-      "fill",
-      "fill-opacity",
-      "fill-rule",
-      "filter",
-      "flood-color",
-      "flood-opacity",
-      "font-family",
-      "font-size",
-      "font-size-adjust",
-      "font-stretch",
-      "font-style",
-      "font-variant",
-      "font-weight",
-      "glyph-orientation-horizontal",
-      "glyph-orientation-vertical",
-      "image-rendering",
-      "letter-spacing",
-      "lighting-color",
-      "marker-end",
-      "marker-mid",
-      "marker-start",
-      "mask",
-      "mask-type",
-      "opacity",
-      "overflow",
-      "paint-order",
-      "pointer-events",
-      "shape-rendering",
-      "stop-color",
-      "stop-opacity",
-      "stroke",
-      "stroke-dasharray",
-      "stroke-dashoffset",
-      "stroke-linecap",
-      "stroke-linejoin",
-      "stroke-miterlimit",
-      "stroke-opacity",
-      "stroke-width",
-      "text-anchor",
-      "text-decoration",
-      "text-overflow",
-      "text-rendering",
-      "transform-origin",
-      "unicode-bidi",
-      "vector-effect",
-      "visibility",
-      "white-space",
-      "word-spacing",
-      "writing-mode"
+        "alignment-baseline",
+        "baseline-shift",
+        "clip-path",
+        "clip-rule",
+        "color",
+        "color-interpolation",
+        "color-interpolation-filters",
+        "cursor",
+        "direction",
+        "display",
+        "dominant-baseline",
+        "fill",
+        "fill-opacity",
+        "fill-rule",
+        "filter",
+        "flood-color",
+        "flood-opacity",
+        "font-family",
+        "font-size",
+        "font-size-adjust",
+        "font-stretch",
+        "font-style",
+        "font-variant",
+        "font-weight",
+        "glyph-orientation-horizontal",
+        "glyph-orientation-vertical",
+        "image-rendering",
+        "letter-spacing",
+        "lighting-color",
+        "marker-end",
+        "marker-mid",
+        "marker-start",
+        "mask",
+        "mask-type",
+        "opacity",
+        "overflow",
+        "paint-order",
+        "pointer-events",
+        "shape-rendering",
+        "stop-color",
+        "stop-opacity",
+        "stroke",
+        "stroke-dasharray",
+        "stroke-dashoffset",
+        "stroke-linecap",
+        "stroke-linejoin",
+        "stroke-miterlimit",
+        "stroke-opacity",
+        "stroke-width",
+        "text-anchor",
+        "text-decoration",
+        "text-overflow",
+        "text-rendering",
+        "transform-origin",
+        "unicode-bidi",
+        "vector-effect",
+        "visibility",
+        "white-space",
+        "word-spacing",
+        "writing-mode"
     );
 
     element("svg")

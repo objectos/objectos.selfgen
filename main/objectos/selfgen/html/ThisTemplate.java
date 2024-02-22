@@ -55,8 +55,6 @@ abstract class ThisTemplate {
 
   static final ClassName NAMES_BUILDER = ClassName.of(HTML_PACKAGE, "NamesBuilder");
 
-  static final ClassName STD_ATTR_NAME = ClassName.of(HTML_PACKAGE, "StandardAttributeName");
-
   static final ClassName ELEMENT_KIND = ClassName.of(HTML_PACKAGE, "ElementKind");
 
   static final ClassName ELEMENT_NAME = ClassName.of(HTML_PACKAGE, "ElementName");

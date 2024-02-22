@@ -28,11 +28,13 @@ public class TemplateElementsStepTest {
       @Override
       protected final void definition() {
         template()
-            .skipAttribute("title");
+            .skipAttribute("title")
+            .skipAttribute("data-way-click");
 
         rootElement()
             .attribute("lang")
-            .attribute("title");
+            .attribute("title")
+            .attribute("data-way-click");
 
         element("a").simpleName("Anchor");
 

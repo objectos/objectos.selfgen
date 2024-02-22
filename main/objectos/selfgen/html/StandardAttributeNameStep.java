@@ -27,7 +27,7 @@ final class StandardAttributeNameStep extends ThisTemplate {
 
   @Override
   final String contents() {
-    className(STD_ATTR_NAME);
+    className(ATTRIBUTE_NAME);
 
     return code."""
     /*
@@ -47,12 +47,44 @@ final class StandardAttributeNameStep extends ThisTemplate {
      */
     package \{packageName};
     \{importList}
+    /**
+     * The name of a HTML attribute.
+     */
     \{GENERATED_MSG}
-    class \{simpleName} {
+    public sealed abstract class \{simpleName} permits WayAttributeName {
 
       static WayAttributeName.Builder BUILDER = new WayAttributeName.Builder();
 
     \{constants()}
+      static {
+        WayAttributeName.set(BUILDER);
+
+        BUILDER = null;
+      }
+
+      AttributeName() {}
+
+      /**
+       * Returns the index of this attribute.
+       *
+       * @return the index of this attribute.
+       */
+      public abstract int index();
+
+      /**
+       * Returns the name of the attribute.
+       *
+       * @return the name of the attribute
+       */
+      public abstract String name();
+
+      /**
+       * Returns {@code true} if this is the name of a boolean atttribute and {@code false} otherwise.
+       *
+       * @return {@code true} if this is the name of a boolean atttribute and {@code false} otherwise
+       */
+      public abstract boolean booleanAttribute();
+
     }
     """;
   }

@@ -86,7 +86,7 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.DisabledAttribute disabled() {
-    attribute(StandardAttributeName.DISABLED);
+    attribute(AttributeName.DISABLED);
     return Api.ATTRIBUTE;
   }
 
@@ -99,7 +99,7 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.OptionValue label(String value) {
-    attribute(StandardAttributeName.LABEL, value);
+    attribute(AttributeName.LABEL, value);
     return Api.ATTRIBUTE;
   }
 
@@ -112,7 +112,7 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.GlobalAttribute lang(String value) {
-    attribute(StandardAttributeName.LANG, value);
+    attribute(AttributeName.LANG, value);
     return Api.ATTRIBUTE;
   }
 
@@ -125,7 +125,7 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.ClipPathAttribute clipPath(String value) {
-    attribute(StandardAttributeName.CLIPPATH, value);
+    attribute(AttributeName.CLIP_PATH, value);
     return Api.ATTRIBUTE;
   }
 }

@@ -61,9 +61,9 @@ abstract class AttributeSpec {
 
     var classSimpleName = JavaNames.toValidClassName(name);
 
-    className = ClassName.of(ThisTemplate.STD_ATTR_NAME, classSimpleName);
+    className = ClassName.of(ThisTemplate.ATTRIBUTE_NAME, classSimpleName);
 
-    constantName = JavaNames.toIdentifier(name.toUpperCase());
+    constantName = JavaNames.toIdentifier(name.replace('-', '_').toUpperCase());
   }
 
   static AttributeSpec global(String name) {

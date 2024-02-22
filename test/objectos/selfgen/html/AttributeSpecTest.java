@@ -83,4 +83,16 @@ public class AttributeSpecTest extends AbstractSelfGenHtmlTest {
     assertEquals(res.methodNames(), List.of("id"));
   }
 
+  @Test
+  public void nameWithHyphen() {
+    specDsl()
+        .rootElement()
+        .attribute("data-way-click")
+        .attributeEnd();
+
+    AttributeSpec res = attributeSpec("data-way-click");
+
+    assertEquals(res.constantName, "DATA_WAY_CLICK");
+  }
+
 }
