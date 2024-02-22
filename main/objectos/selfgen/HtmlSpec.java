@@ -45,8 +45,6 @@ public final class HtmlSpec extends HtmlSelfGen {
         .skipAttribute("label")
         .skipAttribute("title")
 
-        .skipAttribute("dataFrame")
-        .skipAttribute("dataFrameValue")
         .skipAttribute("dataWayClick");
 
     rootElement()
