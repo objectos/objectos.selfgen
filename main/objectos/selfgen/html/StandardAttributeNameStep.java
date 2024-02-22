@@ -47,58 +47,12 @@ final class StandardAttributeNameStep extends ThisTemplate {
      */
     package \{packageName};
     \{importList}
-    /**
-     * TODO
-     */
     \{GENERATED_MSG}
-    enum \{simpleName} implements \{ATTRIBUTE_NAME} {
+    class \{simpleName} {
+
+      static WayAttributeName.Builder BUILDER = new WayAttributeName.Builder();
+
     \{constants()}
-
-      private static final \{className}[] ARRAY = \{className}.values();
-
-      private static final \{UNMODIFIABLE_MAP}<String, \{className}> MAP = mapInit();
-
-      private final \{ATTRIBUTE_KIND} kind;
-
-      private final String name;
-
-      StandardAttributeName(\{ATTRIBUTE_KIND} kind, String name) {
-        this.kind = kind;
-        this.name = name;
-      }
-
-      public static \{className} getByCode(int code) {
-        return ARRAY[code];
-      }
-
-      public static \{className} getByName(String name) {
-        return MAP.get(name);
-      }
-
-      public static int size() {
-        return ARRAY.length;
-      }
-
-      private static \{UNMODIFIABLE_MAP}<String, \{className}> mapInit() {
-        var builder = new NamesBuilder();
-    \{mapInit()}
-        return builder.build();
-      }
-
-      @Override
-      public final int getCode() {
-        return ordinal();
-      }
-
-      @Override
-      public final \{ATTRIBUTE_KIND} getKind() {
-        return kind;
-      }
-
-      @Override
-      public final String getName() {
-        return name;
-      }
     }
     """;
   }
@@ -111,39 +65,23 @@ final class StandardAttributeNameStep extends ThisTemplate {
       String javaName;
       javaName = attribute.constantName;
 
-      String kind;
-      kind = attribute.kind().name();
-
       String htmlName;
       htmlName = attribute.name();
 
+      boolean booleanAttribute;
+      booleanAttribute = attribute.kind().isBoolean();
+
       constants.add(
-          code."  \{javaName}(\{ATTRIBUTE_KIND}.\{kind}, \"\{htmlName}\")"
-      );
-    }
-
-    return constants.stream().collect(Collectors.joining(",\n\n", "", ";"));
-  }
-
-  private String mapInit() {
-    StringBuilder sb;
-    sb = new StringBuilder();
-
-    for (var attribute : spec.attributes()) {
-      String name;
-      name = attribute.name();
-
-      String constantName;
-      constantName = attribute.constantName;
-
-      sb.append(
           code."""
-            builder.put("\{name}", \{constantName});
-        """
+            /**
+             * The {@code \{htmlName}} attribute.
+             */
+            public static final \{ATTRIBUTE_NAME} \{javaName} = BUILDER.create(\"\{htmlName}\", \{booleanAttribute});
+          """
       );
     }
 
-    return sb.toString();
+    return constants.stream().collect(Collectors.joining("\n"));
   }
 
 }
