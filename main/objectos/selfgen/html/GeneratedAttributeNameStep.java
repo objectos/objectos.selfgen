@@ -18,16 +18,17 @@ package objectos.selfgen.html;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import objectos.code.ClassName;
 
-final class StandardAttributeNameStep extends ThisTemplate {
+final class GeneratedAttributeNameStep extends ThisTemplate {
 
-  public StandardAttributeNameStep(HtmlSelfGen spec) {
+  public GeneratedAttributeNameStep(HtmlSelfGen spec) {
     super(spec);
   }
 
   @Override
   final String contents() {
-    className(ATTRIBUTE_NAME);
+    className(ClassName.of(HTML_PACKAGE, "GeneratedAttributeName"));
 
     return code."""
     /*
@@ -47,44 +48,12 @@ final class StandardAttributeNameStep extends ThisTemplate {
      */
     package \{packageName};
     \{importList}
-    /**
-     * The name of a HTML attribute.
-     */
     \{GENERATED_MSG}
-    public sealed abstract class \{simpleName} permits WayAttributeName {
+    abstract class \{simpleName} {
 
-      static WayAttributeName.Builder BUILDER = new WayAttributeName.Builder();
+      \{simpleName}() {}
 
     \{constants()}
-      static {
-        WayAttributeName.set(BUILDER);
-
-        BUILDER = null;
-      }
-
-      AttributeName() {}
-
-      /**
-       * Returns the index of this attribute.
-       *
-       * @return the index of this attribute.
-       */
-      public abstract int index();
-
-      /**
-       * Returns the name of the attribute.
-       *
-       * @return the name of the attribute
-       */
-      public abstract String name();
-
-      /**
-       * Returns {@code true} if this is the name of a boolean atttribute and {@code false} otherwise.
-       *
-       * @return {@code true} if this is the name of a boolean atttribute and {@code false} otherwise
-       */
-      public abstract boolean booleanAttribute();
-
     }
     """;
   }
@@ -108,7 +77,7 @@ final class StandardAttributeNameStep extends ThisTemplate {
             /**
              * The {@code \{htmlName}} attribute.
              */
-            public static final \{ATTRIBUTE_NAME} \{javaName} = BUILDER.create(\"\{htmlName}\", \{booleanAttribute});
+            public static final \{ATTRIBUTE_NAME} \{javaName} = WayAttributeNameBuilder.create(\"\{htmlName}\", \{booleanAttribute});
           """
       );
     }

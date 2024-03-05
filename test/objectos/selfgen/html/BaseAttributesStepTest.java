@@ -73,6 +73,8 @@ public class BaseAttributesStepTest {
  */
 package objectos.html;
 
+import objectos.lang.object.Check;
+
 /**
  * Provides methods for rendering HTML attributes.
  */
@@ -86,8 +88,7 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.DisabledAttribute disabled() {
-    attribute(AttributeName.DISABLED);
-    return Api.ATTRIBUTE;
+    return attribute0(AttributeName.DISABLED);
   }
 
   /**
@@ -99,8 +100,8 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.OptionValue label(String value) {
-    attribute(AttributeName.LABEL, value);
-    return Api.ATTRIBUTE;
+    Check.notNull(value, "value == null");
+    return attribute0(AttributeName.LABEL, value);
   }
 
   /**
@@ -112,8 +113,8 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.GlobalAttribute lang(String value) {
-    attribute(AttributeName.LANG, value);
-    return Api.ATTRIBUTE;
+    Check.notNull(value, "value == null");
+    return attribute0(AttributeName.LANG, value);
   }
 
   /**
@@ -125,8 +126,8 @@ public sealed abstract class BaseAttributes extends Recorder permits BaseElement
    * @return an instruction representing this attribute.
    */
   public final Api.ClipPathAttribute clipPath(String value) {
-    attribute(AttributeName.CLIP_PATH, value);
-    return Api.ATTRIBUTE;
+    Check.notNull(value, "value == null");
+    return attribute0(AttributeName.CLIP_PATH, value);
   }
 }
 """

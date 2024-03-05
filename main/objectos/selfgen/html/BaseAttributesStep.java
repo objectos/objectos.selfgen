@@ -65,8 +65,8 @@ final class BaseAttributesStep extends ThisTemplate {
        * @return an instruction representing this attribute.
        */
       public final \{API}.\{CLIP_PATH_ATTRIBUTE.simpleName()} clipPath(String value) {
-        attribute(\{ATTRIBUTE_NAME}.CLIP_PATH, value);
-        return \{API}.ATTRIBUTE;
+        \{CHECK}.notNull(value, "value == null");
+        return attribute0(\{ATTRIBUTE_NAME}.CLIP_PATH, value);
       }
     }
     """;
@@ -116,8 +116,8 @@ final class BaseAttributesStep extends ThisTemplate {
                * @return an instruction representing this attribute.
                */
               public final \{API}.\{returnName} \{name}(String value) {
-                attribute(\{ATTRIBUTE_NAME}.\{constantName}, value);
-                return \{API}.ATTRIBUTE;
+                \{CHECK}.notNull(value, "value == null");
+                return attribute0(\{ATTRIBUTE_NAME}.\{constantName}, value);
               }
             """);
 
@@ -130,8 +130,7 @@ final class BaseAttributesStep extends ThisTemplate {
                * @return an instruction representing this attribute.
                */
               public final \{API}.\{returnName} \{name}() {
-                attribute(\{ATTRIBUTE_NAME}.\{constantName});
-                return \{API}.ATTRIBUTE;
+                return attribute0(\{ATTRIBUTE_NAME}.\{constantName});
               }
             """);
 

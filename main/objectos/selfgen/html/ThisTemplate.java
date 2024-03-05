@@ -45,6 +45,8 @@ abstract class ThisTemplate {
 
   static final ClassName ATTRIBUTE_NAME = ClassName.of(HTML_PACKAGE, "AttributeName");
 
+  static final ClassName CHECK = ClassName.of("objectos.lang.object", "Check");
+
   static final ClassName CLIP_PATH_ATTRIBUTE = ClassName.of(API, "ClipPathAttribute");
 
   static final ClassName INSTRUCTION2 = ClassName.of(API, "Instruction");

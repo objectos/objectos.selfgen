@@ -43,9 +43,7 @@ public final class HtmlSpec extends HtmlSelfGen {
         .skipAttribute("clipPath")
         .skipAttribute("form")
         .skipAttribute("label")
-        .skipAttribute("title")
-
-        .skipAttribute("dataWayClick");
+        .skipAttribute("title");
 
     rootElement()
         .attribute("accesskey")
@@ -67,12 +65,7 @@ public final class HtmlSpec extends HtmlSelfGen {
 
         .attribute("aria-hidden")
         .attribute("aria-label")
-        .attribute("role")
-
-        .attribute("data-click")
-        .attribute("data-frame")
-        .attribute("data-frame-value")
-        .attribute("data-way-click");
+        .attribute("role");
 
     CategorySpec embedded = category("embedded");
     CategorySpec flow = category("flow");

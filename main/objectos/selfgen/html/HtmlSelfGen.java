@@ -68,7 +68,7 @@ public abstract class HtmlSelfGen {
 
     // old
 
-    writeTo(new StandardAttributeNameStep(this), directory);
+    writeTo(new GeneratedAttributeNameStep(this), directory);
 
     writeTo(new StandardElementNameStep(this), directory);
   }
