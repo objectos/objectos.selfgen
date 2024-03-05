@@ -66,8 +66,10 @@ public final class HtmlSpec extends HtmlSelfGen {
         .attribute("onsubmit")
 
         .attribute("aria-hidden")
+        .attribute("aria-label")
         .attribute("role")
 
+        .attribute("data-click")
         .attribute("data-frame")
         .attribute("data-frame-value")
         .attribute("data-way-click");
