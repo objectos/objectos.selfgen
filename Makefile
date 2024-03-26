@@ -22,91 +22,83 @@
 GROUP_ID := br.com.objectos
 ARTIFACT_ID := objectos.selfgen
 VERSION := 0.4-SNAPSHOT
-MODULE := $(ARTIFACT_ID)
-
-## Resolution dir (required)
-RESOLUTION_DIR := work/resolution
 
 ## Deps versions
-CODE_VERSION := 0.3
-SLF4J_VERSION := 1.7.36
-TESTNG_VERSION := 7.9.0
+CODE := br.com.objectos/objectos.code/0.4-SNAPSHOT
+SLF4J_NOP := org.slf4j/slf4j-nop/1.7.36
+TESTNG := org.testng/testng/7.9.0
 
 # Delete the default suffixes
 .SUFFIXES:
 
 #
-# Default target
+# selfgen
 #
 
 .PHONY: all
 all: test
 
+include make/java-core.mk
+
 #
 # selfgen@clean
 #
 
-## basedir
-BASEDIR := .
-
-include make/tools.mk
-include make/deps.mk
-include make/resolver.mk
-include make/clean.mk
-$(eval $(call CLEAN_TASK,,))
+include make/common-clean.mk
 
 #
 # selfgen@compile
 #
 
 ## javac --release option
-JAVA_RELEASE = 21
+JAVA_RELEASE := 21
 
 ## --enable-preview ?
-ENABLE_PREVIEW = 1
+ENABLE_PREVIEW := 1
 
 ## compile deps
-COMPILE_DEPS := $(RESOLUTION_DIR)/br.com.objectos/objectos.code/$(CODE_VERSION)
+COMPILE_DEPS := $(CODE)
 
-## resolution trigger
-RESOLUTION_REQS := Makefile
-
-include make/compile.mk
-$(eval $(call COMPILE_TASK,,))
+include make/java-compile.mk
 
 #
 # selfgen@test-compile
 #
 
 ## test compile deps
-TEST_COMPILE_DEPS := $(COMPILE_MARKER)
-TEST_COMPILE_DEPS += $(RESOLUTION_DIR)/org.testng/testng/$(TESTNG_VERSION)
+TEST_COMPILE_DEPS := $(TESTNG)
 
-include make/test-compile.mk
-$(eval $(call TEST_COMPILE_TASK,,))
+include make/java-test-compile.mk
 
 #
 # selfgen@test
 #
 
+## test main class
+TEST_MAIN := objectos.selfgen.RunTests
+
 ## www test runtime dependencies
-TEST_RUNTIME_DEPS := $(TEST_COMPILE_DEPS)
-TEST_RUNTIME_DEPS += $(RESOLUTION_DIR)/org.slf4j/slf4j-nop/$(SLF4J_VERSION)
+TEST_RUNTIME_DEPS := $(SLF4J_NOP)
+
+## test modules
+TEST_ADD_MODULES := org.testng
+
+## test --add-reads
+TEST_ADD_READS := objectos.selfgen=org.testng
 
 ## test runtime exports
-TEST_JAVAX_EXPORTS := objectos.selfgen.css
-TEST_JAVAX_EXPORTS += objectos.selfgen.html
-TEST_JAVAX_EXPORTS += selfgen.css.util
+TEST_ADD_EXPORTS :=
+TEST_ADD_EXPORTS += objectos.selfgen/objectos.selfgen.css=org.testng
+TEST_ADD_EXPORTS += objectos.selfgen/objectos.selfgen.html=org.testng
+TEST_ADD_EXPORTS += objectos.selfgen/selfgen.css.util=org.testng
 
-include make/test-run.mk
-$(eval $(call TEST_RUN_TASK,,))
+include make/java-test.mk
 
 #
 # selfgen@jar
 #
 
-include make/jar.mk
-$(eval $(call JAR_TASK,,))
+include make/java-jar.mk
 
 #
 # selfgen@pom
@@ -115,13 +107,8 @@ $(eval $(call JAR_TASK,,))
 ## pom.xml description
 DESCRIPTION := Code generators for the objectos.way project  
 
-include pom.mk
-include make/pom.mk
-$(eval $(call POM_TASK,,))
-
 #
 # selfgen@install
 #
 
-include make/install.mk
-$(eval $(call INSTALL_TASK,,))
+include make/java-install.mk
