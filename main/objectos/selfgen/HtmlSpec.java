@@ -552,6 +552,7 @@ public final class HtmlSpec extends HtmlSelfGen {
         .category(interactive)
         .category(formAssociated)
         .category(palpable)
+        .attribute("autocomplete")
         .attribute("autofocus").booleanType()
         .attribute("name")
         .attribute("placeholder")
