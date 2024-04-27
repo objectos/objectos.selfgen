@@ -21,7 +21,7 @@
 ## Coordinates
 GROUP_ID := br.com.objectos
 ARTIFACT_ID := objectos.selfgen
-VERSION := 0.4
+VERSION := 0.5-SNAPSHOT
 
 ## Deps versions
 CODE := br.com.objectos/objectos.code/0.4
