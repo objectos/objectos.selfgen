@@ -21,10 +21,10 @@
 ## Coordinates
 GROUP_ID := br.com.objectos
 ARTIFACT_ID := objectos.selfgen
-VERSION := 0.4-SNAPSHOT
+VERSION := 0.4
 
 ## Deps versions
-CODE := br.com.objectos/objectos.code/0.4-SNAPSHOT
+CODE := br.com.objectos/objectos.code/0.4
 SLF4J_NOP := org.slf4j/slf4j-nop/1.7.36
 TESTNG := org.testng/testng/7.9.0
 
