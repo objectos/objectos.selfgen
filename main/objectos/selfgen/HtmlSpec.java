@@ -554,6 +554,7 @@ public final class HtmlSpec extends HtmlSelfGen {
         .category(palpable)
         .attribute("autocomplete")
         .attribute("autofocus").booleanType()
+        .attribute("disabled").booleanType()
         .attribute("name")
         .attribute("placeholder")
         .attribute("readonly").booleanType()
@@ -568,6 +569,7 @@ public final class HtmlSpec extends HtmlSelfGen {
         .category(interactive)
         .category(formAssociated)
         .category(palpable)
+        .attribute("disabled").booleanType()
         .attribute("type")
         .one(text());
 
@@ -633,6 +635,7 @@ public final class HtmlSpec extends HtmlSelfGen {
         .category(flow)
         .category(sectioning)
         .category(palpable)
+        .attribute("disabled").booleanType()
         .contentModel(flow);
 
     element("legend")
