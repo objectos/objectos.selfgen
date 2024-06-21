@@ -21,7 +21,7 @@
 ## Coordinates
 GROUP_ID := br.com.objectos
 ARTIFACT_ID := objectos.selfgen
-VERSION := 0.5-SNAPSHOT
+VERSION := 0.5
 
 ## Deps versions
 CODE := br.com.objectos/objectos.code/0.4
@@ -37,6 +37,9 @@ TESTNG := org.testng/testng/7.9.0
 
 .PHONY: all
 all: test
+
+## use JDK 22
+JAVA_HOME := /opt/jdk-22
 
 include make/java-core.mk
 
