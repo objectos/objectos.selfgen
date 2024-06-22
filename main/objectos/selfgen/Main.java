@@ -13,6 +13,5 @@ public final class Main {
   public static void main(String[] args) throws IOException {
     CssSpec.main(args);
     HtmlSpec.main(args);
-    HtmlStyleSpec.main(args);
   }
 }
