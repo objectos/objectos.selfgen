@@ -15,6 +15,9 @@
  */
 package objectos.selfgen.html;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
 final class HtmlGenerated extends ThisTemplate {
@@ -77,7 +80,70 @@ final class HtmlGenerated extends ThisTemplate {
       private static final class HtmlAttributeInstruction implements AttributeInstruction {}
     
       static final AttributeInstruction ATTRIBUTE = new HtmlAttributeInstruction();
+    
+    \{templateAttributes()}""";
+  }
+  
+  private String templateAttributes() {
+    return code."""
+      /**
+       * Provides methods for rendering HTML attributes in templates.
+       */
+      public static abstract class TemplateAttributes {
+        TemplateAttributes() {}
+  
+    \{templateAttributesMethods()}
+        abstract Html.Compiler $compiler();
+      }
     """;
+  }
+  
+  private String templateAttributesMethods() {
+    List<String> methods;
+    methods = new ArrayList<>();
+
+    TemplateSpec template;
+    template = spec.template();
+
+    for (var attribute : spec.attributes()) {
+      for (String name : attribute.methodNames()) {
+        if (!template.shouldIncludeAttribute(name)) {
+          continue;
+        }
+
+        AttributeKind kind;
+        kind = attribute.kind();
+
+        if (kind.isString()) {
+          methods.add(code."""
+                /**
+                 * Generates the {@code \{attribute.name()}} attribute with the specified value.
+                 *
+                 * @param value
+                 *        the value of the attribute
+                 *
+                 * @return an instruction representing this attribute.
+                 */
+                protected final AttributeInstruction \{name}(String value) {
+                  return $compiler().\{name}(value);
+                }
+            """);
+        } else {
+              methods.add(code."""
+                /**
+                 * Generates the {@code \{attribute.name()}} boolean attribute.
+                 *
+                 * @return an instruction representing this attribute.
+                 */
+                protected final AttributeInstruction \{name}() {
+                  return $compiler().\{name}();
+                }
+            """);
+        }
+      }
+    }
+
+    return methods.stream().collect(Collectors.joining("\n"));
   }
 
 }

@@ -97,6 +97,48 @@ abstract class HtmlGenerated {
 
   static final AttributeInstruction ATTRIBUTE = new HtmlAttributeInstruction();
 
+  /**
+   * Provides methods for rendering HTML attributes in templates.
+   */
+  public static abstract class TemplateAttributes {
+    TemplateAttributes() {}
+
+    /**
+     * Generates the {@code disabled} boolean attribute.
+     *
+     * @return an instruction representing this attribute.
+     */
+    protected final AttributeInstruction disabled() {
+      return $compiler().disabled();
+    }
+
+    /**
+     * Generates the {@code label} attribute with the specified value.
+     *
+     * @param value
+     *        the value of the attribute
+     *
+     * @return an instruction representing this attribute.
+     */
+    protected final AttributeInstruction label(String value) {
+      return $compiler().label(value);
+    }
+
+    /**
+     * Generates the {@code lang} attribute with the specified value.
+     *
+     * @param value
+     *        the value of the attribute
+     *
+     * @return an instruction representing this attribute.
+     */
+    protected final AttributeInstruction lang(String value) {
+      return $compiler().lang(value);
+    }
+
+    abstract Html.Compiler $compiler();
+  }
+
   HtmlGenerated() {}
 
 }
