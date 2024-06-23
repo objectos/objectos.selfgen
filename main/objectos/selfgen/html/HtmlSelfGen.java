@@ -33,8 +33,6 @@ public abstract class HtmlSelfGen {
 
   private final Map<String, AttributeSpec> attributeMap = new TreeMap<>();
 
-  private final Map<String, CategorySpec> categoryMap = new TreeMap<>();
-
   private final Map<String, ElementSpec> elementMap = new TreeMap<>();
 
   private final RootElementSpec rootElement = new RootElementSpec(this);
@@ -86,10 +84,6 @@ public abstract class HtmlSelfGen {
     var name = element.name();
 
     return attributeMap.containsKey(name);
-  }
-
-  protected final CategorySpec category(String name) {
-    return categoryMap.computeIfAbsent(name, this::category0);
   }
 
   protected abstract void definition();
@@ -151,15 +145,7 @@ public abstract class HtmlSelfGen {
   final HtmlSelfGen prepare() {
     definition();
 
-    for (ElementSpec element : elementMap.values()) {
-      element.prepare();
-    }
-
     return this;
-  }
-
-  private CategorySpec category0(String name) {
-    return new CategorySpec(name);
   }
 
   private ElementSpec element0(String name) {

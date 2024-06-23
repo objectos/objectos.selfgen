@@ -17,7 +17,6 @@ package objectos.selfgen;
 
 import java.io.IOException;
 import java.util.Set;
-import objectos.selfgen.html.CategorySpec;
 import objectos.selfgen.html.HtmlSelfGen;
 
 @SuppressWarnings("exports")
@@ -67,36 +66,17 @@ public final class HtmlSpec extends HtmlSelfGen {
         .attribute("aria-label")
         .attribute("role");
 
-    CategorySpec embedded = category("embedded");
-    CategorySpec flow = category("flow");
-    CategorySpec formAssociated = category("form-associated");
-    CategorySpec heading = category("heading");
-    CategorySpec interactive = category("interactive");
-    CategorySpec metadata = category("metadata");
-    CategorySpec palpable = category("palpable");
-    CategorySpec phrasing = category("phrasing");
-    CategorySpec sectioning = category("sectioning");
+    text();
 
-    text()
-        .category(flow)
-        .category(phrasing)
-        .category(palpable);
-
-    element("html")
-        .one(el("head"))
-        .one(el("body"));
+    element("html");
 
     // 4.2 Document metadata
 
-    element("head")
-        .contentModel(metadata);
+    element("head");
 
-    element("title")
-        .category(metadata)
-        .one(text());
+    element("title");
 
     element("link")
-        .category(metadata)
         .attribute("href")
         .attribute("crossorigin")
         .attribute("rel")
@@ -108,7 +88,6 @@ public final class HtmlSpec extends HtmlSelfGen {
         .noEndTag();
 
     element("meta")
-        .category(metadata)
         .attribute("name")
         .attribute("http-equiv")
         .attribute("content")
@@ -121,15 +100,11 @@ public final class HtmlSpec extends HtmlSelfGen {
     // (...)
     // In the body, where flow content is expected."
     element("style")
-        .category(flow)
-        .category(metadata)
-        .attribute("type")
-        .one(text());
+        .attribute("type");
 
     // 4.3 Sections
 
     element("body")
-        .contentModel(flow)
         .attribute("onafterprint")
         .attribute("onbeforeprint")
         .attribute("onbeforeunload")
@@ -147,235 +122,100 @@ public final class HtmlSpec extends HtmlSelfGen {
         .attribute("onunload")
         .attributeEnd();
 
-    element("article")
-        .category(flow)
-        .category(sectioning)
-        .category(palpable)
-        .contentModel(flow);
+    element("article");
 
-    element("section")
-        .category(flow)
-        .category(sectioning)
-        .category(palpable)
-        .contentModel(flow);
+    element("section");
 
-    element("nav")
-        .category(flow)
-        .category(sectioning)
-        .category(palpable)
-        .contentModel(flow);
+    element("nav");
 
     for (int i = 1; i <= 6; i++) {
       element("h" + i)
-          .simpleName("Heading" + i)
-          .category(flow)
-          .category(heading)
-          .category(palpable)
-          .one(text());
+          .simpleName("Heading" + i);
     }
 
     element("hgroup")
-        .simpleName("HeadingGroup")
-        .category(flow)
-        .category(heading)
-        .category(palpable)
-        .zeroOrMore(el("h1"))
-        .zeroOrMore(el("h2"))
-        .zeroOrMore(el("h3"))
-        .zeroOrMore(el("h4"))
-        .zeroOrMore(el("h5"))
-        .zeroOrMore(el("h6"));
+        .simpleName("HeadingGroup");
 
-    element("header")
-        .category(flow)
-        .category(palpable)
-        .contentModel(flow);
+    element("header");
 
-    element("footer")
-        .category(flow)
-        .category(palpable)
-        .contentModel(flow);
+    element("footer");
 
     // 4.4 Grouping content
 
     element("p")
-        .simpleName("Paragraph")
-        .category(flow)
-        .category(palpable)
-        .one(text());
+        .simpleName("Paragraph");
 
     element("hr")
         .simpleName("HorizontalRule")
-        .category(flow)
         .noEndTag();
 
-    element("pre")
-        .category(flow)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("pre");
 
     element("blockquote")
-        .category(flow)
-        .category(sectioning)
-        .category(palpable)
         .attribute("cite")
         .attributeEnd();
 
     element("ol")
         .simpleName("OrderedList")
-        .category(flow)
-        .category(palpable)
-        .zeroOrMore(el("li"))
         .attribute("reversed").booleanType()
         .attribute("start")
         .attribute("type")
         .attributeEnd();
 
-    element("ul")
-        .simpleName("UnorderedList")
-        .category(flow)
-        .category(palpable)
-        .zeroOrMore(el("li"));
+    element("ul").simpleName("UnorderedList");
 
-    element("menu")
-        .category(flow)
-        .category(palpable)
-        .zeroOrMore(el("li"));
+    element("menu");
 
-    element("dl")
-        .simpleName("DefinitionList")
-        .category(flow)
-        .zeroOrMore(el("dt"));
+    element("dl").simpleName("DefinitionList");
 
-    element("dt")
-        .simpleName("DefinitionTerm")
-        .contentModel(flow);
+    element("dt").simpleName("DefinitionTerm");
 
-    element("dd")
-        .simpleName("DefinitionDescription")
-        .contentModel(flow);
+    element("dd").simpleName("DefinitionDescription");
 
-    element("figure")
-        .category(flow)
-        .category(sectioning)
-        .category(palpable);
+    element("figure");
 
-    element("li")
-        .simpleName("ListItem")
-        .contentModel(flow);
+    element("li").simpleName("ListItem");
 
-    element("main")
-        .category(flow)
-        .category(palpable)
-        .contentModel(flow);
+    element("main");
 
-    element("div")
-        .category(flow)
-        .category(palpable)
-        .contentModel(flow);
+    element("div");
 
     // 4.5 Text-level semantics
 
     // TODO: <a> transparent
-    element("a")
-        .simpleName("Anchor")
-        .category(flow)
-        .category(phrasing)
-        .category(interactive)
-        .category(palpable)
+    element("a").simpleName("Anchor")
         .attribute("href")
-        .attribute("target")
-        .one(text());
+        .attribute("target");
 
-    element("em")
-        .simpleName("Emphasis")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("em").simpleName("Emphasis");
 
-    element("strong")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("strong");
 
-    element("small")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("small");
 
-    element("abbr")
-        .simpleName("Abbreviation")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("abbr").simpleName("Abbreviation");
 
-    element("code")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("code");
 
-    element("samp")
-        .simpleName("SampleOutput")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("samp").simpleName("SampleOutput");
 
-    element("kbd")
-        .simpleName("KeyboardInput")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("kbd").simpleName("KeyboardInput");
 
-    element("span")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("span");
 
-    element("br")
-        .simpleName("LineBreak")
-        .category(flow)
-        .category(phrasing)
+    element("br").simpleName("LineBreak")
         .noEndTag();
 
-    element("sub")
-        .simpleName("Subscript")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("sub").simpleName("Subscript");
 
-    element("sup")
-        .simpleName("Superscript")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("sup").simpleName("Superscript");
 
-    element("b")
-        .simpleName("BringAttentionTo")
-        .category(flow)
-        .category(phrasing)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("b").simpleName("BringAttentionTo");
 
     // 4.7 Embedded content
 
     element("img")
         .simpleName("Image")
-        .category(flow)
-        .category(phrasing)
-        .category(embedded)
-        .category(formAssociated)
-        .category(interactive)
-        .category(palpable)
         .attribute("alt")
         .attribute("src")
         .attribute("srcset")
@@ -448,20 +288,13 @@ public final class HtmlSpec extends HtmlSelfGen {
     );
 
     element("svg")
-        .category(flow)
-        .category(phrasing)
-        .category(embedded)
-        .category(palpable)
-
         .attributes(svgPresentationProps)
         .attribute("height")
         .attribute("transform")
         .attribute("viewBox")
         .attribute("xmlns")
         .attribute("width")
-        .attributeEnd()
-        .zeroOrMore(el("g"))
-        .zeroOrMore(el("path"));
+        .attributeEnd();
 
     element("clipPath")
         .attributes(svgPresentationProps)
@@ -471,14 +304,11 @@ public final class HtmlSpec extends HtmlSelfGen {
 
     element("defs")
         .attributes(svgPresentationProps)
-        .attributeEnd()
-        .zeroOrMore(el("clipPath"));
+        .attributeEnd();
 
     element("g")
         .attributes(svgPresentationProps)
-        .attribute("transform")
-        .zeroOrMore(el("g"))
-        .zeroOrMore(el("path"));
+        .attribute("transform");
 
     element("path")
         .attributes(svgPresentationProps)
@@ -489,45 +319,30 @@ public final class HtmlSpec extends HtmlSelfGen {
     // 4.9 Tabular data
 
     element("table")
-        .category(flow)
-        .category(palpable)
         .attribute("align")
         .attribute("border")
         .attribute("cellpadding")
         .attribute("cellspacing")
-        .attribute("width")
-        .one(el("thead"))
-        .zeroOrMore(el("tbody"));
+        .attribute("width");
 
     element("thead")
-        .simpleName("TableHead")
-        .zeroOrMore(el("tr"));
+        .simpleName("TableHead");
 
     element("tbody")
-        .simpleName("TableBody")
-        .zeroOrMore(el("tr"));
+        .simpleName("TableBody");
 
     element("tr")
-        .simpleName("TableRow")
-        .zeroOrMore(el("th"))
-        .zeroOrMore(el("td"));
+        .simpleName("TableRow");
 
     element("th")
-        .simpleName("TableHeader")
-        .one(text());
+        .simpleName("TableHeader");
 
     element("td")
-        .simpleName("TableData")
-        .zeroOrMore(text())
-        .zeroOrMore(el("a"));
+        .simpleName("TableData");
 
     // 4.10 Forms
 
     element("form")
-        .category(flow)
-        .category(palpable)
-        .contentModel(flow)
-        /**/.except(el("form"))
         .attribute("action")
         .attribute("enctype")
         .attribute("method")
@@ -536,22 +351,10 @@ public final class HtmlSpec extends HtmlSelfGen {
         .attributeEnd();
 
     element("label")
-        .category(flow)
-        .category(phrasing)
-        .category(interactive)
-        .category(formAssociated)
-        .category(palpable)
-        .contentModel(phrasing)
-        /**/.except(el("label"))
         .attribute("for").as("forAttr", "forElement")
         .attributeEnd();
 
     element("input")
-        .category(flow)
-        .category(phrasing)
-        .category(interactive)
-        .category(formAssociated)
-        .category(palpable)
         .attribute("autocomplete")
         .attribute("autofocus").booleanType()
         .attribute("disabled").booleanType()
@@ -564,51 +367,29 @@ public final class HtmlSpec extends HtmlSelfGen {
         .noEndTag();
 
     element("button")
-        .category(flow)
-        .category(phrasing)
-        .category(interactive)
-        .category(formAssociated)
-        .category(palpable)
         .attribute("disabled").booleanType()
-        .attribute("type")
-        .one(text());
+        .attribute("type");
 
     element("select")
-        .category(flow)
-        .category(phrasing)
-        .category(interactive)
-        // Listed, labelable, submittable, resettable, and
-        // autocapitalize-inheriting form-associated element.
-        .category(palpable)
         .attribute("autocomplete")
         .attribute("disabled").booleanType()
         .attribute("form")
         .attribute("multiple").booleanType()
         .attribute("name")
         .attribute("required").booleanType()
-        .attribute("size")
-        .zeroOrMore(el("option"))
-        .zeroOrMore(el("optgroup"));
+        .attribute("size");
 
     element("optgroup")
-        .simpleName("OptionGroup")
-        .zeroOrMore(el("option"));
+        .simpleName("OptionGroup");
 
     element("option")
         .attribute("disabled").booleanType()
         .attribute("label")
         .attribute("selected").booleanType()
-        .attribute("value")
-        .one(text());
+        .attribute("value");
 
     element("textarea")
         .simpleName("TextArea")
-        .category(flow)
-        .category(phrasing)
-        .category(interactive)
-        // Listed, labelable, submittable, resettable, and
-        // autocapitalize-inheriting form-associated element.
-        .category(palpable)
         .attribute("autocomplete")
         .attribute("cols")
         .attribute("dirname")
@@ -621,45 +402,25 @@ public final class HtmlSpec extends HtmlSelfGen {
         .attribute("readonly").booleanType()
         .attribute("required").booleanType()
         .attribute("rows")
-        .attribute("wrap")
-        .one(text());
+        .attribute("wrap");
 
-    element("progress")
-        .category(flow)
-        .category(phrasing)
-        // .category(labelable)
-        .category(palpable)
-        .contentModel(phrasing);
+    element("progress");
 
     element("fieldset")
-        .category(flow)
-        .category(sectioning)
-        .category(palpable)
-        .attribute("disabled").booleanType()
-        .contentModel(flow);
+        .attribute("disabled").booleanType();
 
-    element("legend")
-        .contentModel(phrasing);
+    element("legend");
 
     // 4.11 Interactive elements
 
     element("details")
-        .category(flow)
-        .category(sectioning)
-        .category(interactive)
-        .category(palpable)
-        .attribute("open").booleanType()
-        .contentModel(flow);
+        .attribute("open").booleanType();
 
-    element("summary")
-        .contentModel(phrasing);
+    element("summary");
 
     // 4.12 Scripting
 
     element("script")
-        .category(flow)
-        .category(metadata)
-        .category(phrasing)
         .attribute("src")
         .attribute("type")
         .attribute("nomodule").booleanType()
@@ -667,13 +428,9 @@ public final class HtmlSpec extends HtmlSelfGen {
         .attribute("defer").booleanType()
         .attribute("crossorigin")
         .attribute("integrity")
-        .attribute("referrerpolicy")
-        .one(text());
+        .attribute("referrerpolicy");
 
-    element("template")
-        .category(metadata)
-        .category(flow)
-        .category(phrasing);
+    element("template");
   }
 
 }

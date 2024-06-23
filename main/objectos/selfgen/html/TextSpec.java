@@ -34,11 +34,6 @@ public final class TextSpec implements Child, Name {
     return this;
   }
 
-  public final TextSpec category(CategorySpec category) {
-    category.add(this);
-    return this;
-  }
-
   @Override
   public final boolean equals(Object obj) {
     if (!(obj instanceof TextSpec)) {

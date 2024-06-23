@@ -31,8 +31,6 @@ public final class ElementSpec
 
   private ElementAttributeSpec attribute;
 
-  private ContentModel childSpec = ContentModel.start();
-
   private final HtmlSelfGen dsl;
 
   private boolean hasEndTag = true;
@@ -86,21 +84,9 @@ public final class ElementSpec
     return this;
   }
 
-  public final ElementSpec category(CategorySpec category) {
-    stringKindIfNecessary();
-    category.add(this);
-    return this;
-  }
-
   @Override
   public final int compareTo(ElementSpec o) {
     return name.compareTo(o.name);
-  }
-
-  public final ElementSpec contentModel(CategorySpec category) {
-    stringKindIfNecessary();
-    childSpec = childSpec.category(category);
-    return this;
   }
 
   @Override
@@ -111,21 +97,6 @@ public final class ElementSpec
 
     ElementSpec that = (ElementSpec) obj;
     return name.equals(that.name);
-  }
-
-  public final ElementSpec except(ElementSpec element) {
-    childSpec = childSpec.except(element);
-    return this;
-  }
-
-  //
-
-  public final boolean hasBuilder() {
-    return childSpec.hasBuilder();
-  }
-
-  public final boolean hasChildren() {
-    return childSpec.hasChildren();
   }
 
   //
@@ -153,35 +124,14 @@ public final class ElementSpec
     hasEndTag = false;
   }
 
-  public final ElementSpec one(Child el) {
-    stringKindIfNecessary();
-    Name name = el.addParent(this);
-    childSpec = childSpec.one(name);
-    return this;
-  }
-
   public final Iterable<ElementSpec> parentStream() {
     return parentSet;
-  }
-
-  public final void prepare() {
-    childSpec.prepare(this);
   }
 
   public final ElementSpec simpleName(String simpleName) {
     constantName = JavaNames.toIdentifier(name.toUpperCase());
 
     valueSimpleName = simpleName + "Value";
-
-    return this;
-  }
-
-  public final ElementSpec zeroOrMore(Child el) {
-    stringKindIfNecessary();
-
-    Name name = el.addParent(this);
-
-    childSpec = childSpec.zeroOrMore(name);
 
     return this;
   }
