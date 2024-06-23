@@ -52,6 +52,10 @@ public abstract class HtmlSelfGen {
 
     prepare();
 
+    // new new
+    
+    writeTo(new HtmlGenerated(this), directory);
+    
     // new
 
     writeTo(new ApiStep(this), directory);

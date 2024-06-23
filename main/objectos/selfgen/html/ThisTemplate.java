@@ -39,6 +39,8 @@ abstract class ThisTemplate {
 
   static final String HTML_PACKAGE = "objectos.html";
 
+  static final String WAY_PACKAGE = "objectos.way";
+
   static final ClassName AMBIGUOUS = ClassName.of(HTML_PACKAGE, "Ambiguous");
 
   static final ClassName API = ClassName.of(HTML_PACKAGE, "Api");
