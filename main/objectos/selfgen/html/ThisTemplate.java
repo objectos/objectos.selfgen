@@ -137,6 +137,23 @@ abstract class ThisTemplate {
     importList = code.importList(packageName);
   }
 
+  final String elementMethods(BiFunction<TemplateSpec, ElementSpec, String> function) {
+    List<String> methods;
+    methods = new ArrayList<>();
+
+    TemplateSpec template;
+    template = spec.template();
+
+    for (var element : spec.elements()) {
+      String method;
+      method = function.apply(template, element);
+
+      methods.add(method);
+    }
+
+    return methods.stream().collect(Collectors.joining("\n"));
+  }
+
   abstract String contents();
 
 }

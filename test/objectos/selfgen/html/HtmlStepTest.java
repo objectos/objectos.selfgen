@@ -80,7 +80,7 @@ public final class Html {
   /**
    * Provides methods the HTML attributes template methods.
    */
-  public static abstract class TemplateAttributes {
+  public sealed static abstract class TemplateAttributes {
 
     TemplateAttributes() {}
 
@@ -152,6 +152,139 @@ public final class Html {
      * @return an instruction representing this attribute.
      */
     AttributeInstruction lang(String value);
+
+  }
+
+  /**
+   * An element instruction in an HTML template.
+   */
+  public sealed interface ElementInstruction extends Instruction {}
+
+  private static final class HtmlElementInstruction implements ElementInstruction {}
+
+  static final ElementInstruction ELEMENT = new HtmlElementInstruction();
+
+  public non-sealed abstract class TemplateElements extends TemplateAttributes {
+
+    TemplateElements() {}
+
+    /**
+     * Generates the {@code <!DOCTYPE html>} doctype.
+     */
+    protected final void doctype() {
+      $compiler().doctype();
+    }
+
+    /**
+     * Generates the {@code a} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction a(Instruction... contents) {
+      return $compiler().a(contents);
+    }
+
+    /**
+     * Generates the {@code a} element with the specified text.
+     *
+     * @param text
+     *        the text value of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction a(String text) {
+      return $compiler().a(text);
+    }
+
+    /**
+     * Generates the {@code meta} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction meta(Instruction... contents) {
+      return $compiler().meta(contents);
+    }
+
+    /**
+     * Generates the {@code option} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction option(Instruction... contents) {
+      return $compiler().option(contents);
+    }
+
+    /**
+     * Generates the {@code option} element with the specified text.
+     *
+     * @param text
+     *        the text value of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction option(String text) {
+      return $compiler().option(text);
+    }
+
+    /**
+     * Generates the {@code select} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction select(Instruction... contents) {
+      return $compiler().select(contents);
+    }
+
+    /**
+     * Generates the {@code select} element with the specified text.
+     *
+     * @param text
+     *        the text value of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction select(String text) {
+      return $compiler().select(text);
+    }
+
+    /**
+     * Generates the {@code title} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    protected final ElementInstruction title(Instruction... contents) {
+      return $compiler().title(contents);
+    }
+
+    /**
+     * Generates the {@code title} attribute or element with the specified text.
+     *
+     * @param text
+     *        the text value of this attribute or element
+     *
+     * @return an instruction representing this attribute or element.
+     */
+    protected final ElementInstruction title(String text) {
+      return $compiler().title(text);
+    }
+
+    @Override
+    abstract CompilerElements $compiler();
 
   }
 
