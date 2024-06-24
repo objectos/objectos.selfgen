@@ -90,7 +90,7 @@ final class HtmlStep extends ThisTemplate {
   private String templateAttributes() {
     return code."""
       /**
-       * Provides methods the HTML attributes template methods.
+       * Provides the HTML attributes template methods.
        */
       public sealed static abstract class TemplateAttributes {
       
@@ -196,8 +196,14 @@ final class HtmlStep extends ThisTemplate {
   
   private String templateElements() {
     return code."""
-        public non-sealed abstract class TemplateElements extends TemplateAttributes {
+        /**
+         * Provides the HTML elements template methods.
+         */
+        public non-sealed static abstract class TemplateElements extends TemplateAttributes {
       
+          /**
+           * Sole constructor.
+           */
           TemplateElements() {}
   
           /**
