@@ -20,15 +20,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
-final class BaseElementsStep extends ThisTemplate {
+final class HtmlCompilerElementsStep extends ThisTemplate {
 
-  public BaseElementsStep(HtmlSelfGen spec) {
+  public HtmlCompilerElementsStep(HtmlSelfGen spec) {
     super(spec);
   }
 
   @Override
   final String contents() {
-    className(ClassName.of(HTML_PACKAGE, "BaseElements"));
+    className(ClassName.of(WAY_PACKAGE, "HtmlCompilerElements"));
 
     return code."""
     /*
@@ -52,7 +52,8 @@ final class BaseElementsStep extends ThisTemplate {
      * Provides methods for rendering HTML elements.
      */
     \{GENERATED_MSG}
-    public sealed abstract class \{simpleName} extends BaseAttributes permits Html {
+    abstract class \{simpleName} extends HtmlCompilerAttributes {
+    
       \{simpleName}() {}
 
     \{elements()}
@@ -72,7 +73,7 @@ final class BaseElementsStep extends ThisTemplate {
       methodName = element.methodName();
 
       String paramTypeName;
-      paramTypeName = element.valueSimpleName;
+      paramTypeName = element.hasEndTag() ? "Html.Instruction" : "Html.AttributeInstruction";
 
       String constantName;
       constantName = element.constantName;
@@ -87,9 +88,9 @@ final class BaseElementsStep extends ThisTemplate {
            *
            * @return an instruction representing this element.
            */
-          public final \{API}.Element \{methodName}(\{API}.\{paramTypeName}... contents) {
-            element(\{STD_ELEMENT_NAME}.\{constantName}, contents);
-            return \{API}.ELEMENT;
+          public final Html.ElementInstruction \{methodName}(\{paramTypeName}... contents) {
+            element(HtmlElementName.\{constantName}, contents);
+            return Html.ELEMENT;
           }
         """
       );
@@ -106,9 +107,9 @@ final class BaseElementsStep extends ThisTemplate {
              *
              * @return an instruction representing this element.
              */
-            public final \{API}.Element \{methodName}(String text) {
-              element(\{STD_ELEMENT_NAME}.\{constantName}, text);
-              return \{API}.ELEMENT;
+            public final Html.ElementInstruction \{methodName}(String text) {
+              element(HtmlElementName.\{constantName}, text);
+              return Html.ELEMENT;
             }
           """
         );
@@ -125,9 +126,9 @@ final class BaseElementsStep extends ThisTemplate {
              *
              * @return an instruction representing this attribute or element.
              */
-            public final \{API}.Element \{methodName}(String text) {
-              ambiguous(\{AMBIGUOUS}.\{constantName}, text);
-              return \{API}.ELEMENT;
+            public final Html.ElementInstruction \{methodName}(String text) {
+              ambiguous(HtmlAmbiguous.\{constantName}, text);
+              return Html.ELEMENT;
             }
           """
         );

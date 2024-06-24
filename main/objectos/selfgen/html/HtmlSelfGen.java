@@ -58,6 +58,8 @@ public abstract class HtmlSelfGen {
 
     writeTo(new HtmlCompilerAttributesStep(this), directory);
 
+    writeTo(new HtmlCompilerElementsStep(this), directory);
+
     writeTo(new HtmlElementNameGeneratedStep(this), directory);
 
     writeTo(new HtmlStep(this), directory);
@@ -65,8 +67,6 @@ public abstract class HtmlSelfGen {
     // new
 
     writeTo(new ApiStep(this), directory);
-
-    writeTo(new BaseElementsStep(this), directory);
 
     writeTo(new TemplateAttributesStep(this), directory);
 
