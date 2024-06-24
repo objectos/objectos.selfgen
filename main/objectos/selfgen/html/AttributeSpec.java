@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
-import objectos.code.ClassName;
 import objectos.selfgen.util.JavaNames;
 
 abstract class AttributeSpec {
@@ -42,8 +41,6 @@ abstract class AttributeSpec {
 
   }
 
-  public final ClassName className;
-
   public final String constantName;
 
   final Set<String> elements = new TreeSet<>();
@@ -58,10 +55,6 @@ abstract class AttributeSpec {
 
   AttributeSpec(String name) {
     this.name = name;
-
-    var classSimpleName = JavaNames.toValidClassName(name);
-
-    className = ClassName.of(ThisTemplate.ATTRIBUTE_NAME, classSimpleName);
 
     constantName = JavaNames.toIdentifier(name.replace('-', '_').toUpperCase());
   }
