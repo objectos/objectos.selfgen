@@ -127,14 +127,14 @@ public final class Html {
   public sealed interface CompilerAttributes permits Compiler {
 
     /**
-     * Compiles the {@code disabled} boolean attribute.
+     * Generates the {@code disabled} boolean attribute.
      *
      * @return an instruction representing this attribute.
      */
     AttributeInstruction disabled();
 
     /**
-     * Compiles the {@code label} attribute with the specified value.
+     * Generates the {@code label} attribute with the specified value.
      *
      * @param value
      *        the value of the attribute
@@ -144,7 +144,7 @@ public final class Html {
     AttributeInstruction label(String value);
 
     /**
-     * Compiles the {@code lang} attribute with the specified value.
+     * Generates the {@code lang} attribute with the specified value.
      *
      * @param value
      *        the value of the attribute
@@ -207,7 +207,7 @@ public final class Html {
      *
      * @return an instruction representing this element.
      */
-    protected final ElementInstruction meta(Instruction... contents) {
+    protected final ElementInstruction meta(AttributeInstruction... contents) {
       return $compiler().meta(contents);
     }
 
@@ -285,6 +285,103 @@ public final class Html {
 
     @Override
     abstract CompilerElements $compiler();
+
+  }
+
+  /**
+   * Provides the HTML elements compiler methods.
+   */
+  public sealed interface CompilerElements permits Compiler {
+
+    /**
+     * Generates the {@code a} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction a(Instruction... contents);
+
+    /**
+     * Generates the {@code a} element with the specified text.
+     *
+     * @param text
+     *        the text value of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction a(String text);
+
+    /**
+     * Generates the {@code meta} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction meta(AttributeInstruction... contents);
+
+    /**
+     * Generates the {@code option} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction option(Instruction... contents);
+
+    /**
+     * Generates the {@code option} element with the specified text.
+     *
+     * @param text
+     *        the text value of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction option(String text);
+
+    /**
+     * Generates the {@code select} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction select(Instruction... contents);
+
+    /**
+     * Generates the {@code select} element with the specified text.
+     *
+     * @param text
+     *        the text value of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction select(String text);
+
+    /**
+     * Generates the {@code title} element with the specified content.
+     *
+     * @param contents
+     *        the attributes and children of this element
+     *
+     * @return an instruction representing this element.
+     */
+    ElementInstruction title(Instruction... contents);
+
+    /**
+     * Generates the {@code title} attribute or element with the specified text.
+     *
+     * @param text
+     *        the text value of this attribute or element
+     *
+     * @return an instruction representing this attribute or element.
+     */
+    ElementInstruction title(String text);
 
   }
 

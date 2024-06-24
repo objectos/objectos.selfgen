@@ -157,7 +157,7 @@ final class HtmlStep extends ThisTemplate {
       if (kind.isString()) {
         return code."""
                 /**
-                 * Compiles the {@code \{attribute.name()}} attribute with the specified value.
+                 * Generates the {@code \{attribute.name()}} attribute with the specified value.
                  *
                  * @param value
                  *        the value of the attribute
@@ -169,7 +169,7 @@ final class HtmlStep extends ThisTemplate {
       } else {
         return code."""
                 /**
-                 * Compiles the {@code \{attribute.name()}} boolean attribute.
+                 * Generates the {@code \{attribute.name()}} boolean attribute.
                  *
                  * @return an instruction representing this attribute.
                  */
@@ -190,7 +190,8 @@ final class HtmlStep extends ThisTemplate {
       
         static final ElementInstruction ELEMENT = new HtmlElementInstruction();
       
-      \{templateElements()}""";
+      \{templateElements()}
+      \{compilerElements()}""";
   }
   
   private String templateElements() {
@@ -225,6 +226,9 @@ final class HtmlStep extends ThisTemplate {
       String methodName;
       methodName = element.methodName();
 
+      String paramTypeName;
+      paramTypeName = element.hasEndTag() ? "Instruction" : "AttributeInstruction";
+
       methods.add(code."""
           /**
            * Generates the {@code \{element.name()}} element with the specified content.
@@ -234,7 +238,7 @@ final class HtmlStep extends ThisTemplate {
            *
            * @return an instruction representing this element.
            */
-          protected final ElementInstruction \{methodName}(Instruction... contents) {
+          protected final ElementInstruction \{methodName}(\{paramTypeName}... contents) {
             return $compiler().\{methodName}(contents);
           }
       """);
@@ -269,6 +273,78 @@ final class HtmlStep extends ThisTemplate {
             protected final ElementInstruction \{methodName}(String text) {
               return $compiler().\{methodName}(text);
             }
+        """);
+
+      }
+    }
+
+    return methods.stream().collect(Collectors.joining("\n"));
+  }
+
+  private String compilerElements() {
+    return code."""
+      /**
+       * Provides the HTML elements compiler methods.
+       */
+      public sealed interface CompilerElements permits Compiler {
+    
+    \{compilerElementsMethods()}
+      }
+    """;
+  }
+  
+  private String compilerElementsMethods() {
+    List<String> methods;
+    methods = new ArrayList<>();
+
+    TemplateSpec template;
+    template = spec.template();
+
+    for (var element : spec.elements()) {
+      String methodName;
+      methodName = element.methodName();
+
+      String paramTypeName;
+      paramTypeName = element.hasEndTag() ? "Instruction" : "AttributeInstruction";
+
+      methods.add(code."""
+          /**
+           * Generates the {@code \{element.name()}} element with the specified content.
+           *
+           * @param contents
+           *        the attributes and children of this element
+           *
+           * @return an instruction representing this element.
+           */
+          ElementInstruction \{methodName}(\{paramTypeName}... contents);
+      """);
+
+      if (template.shouldIncludeText(element)) {
+
+        methods.add(code."""
+            /**
+             * Generates the {@code \{element.name()}} element with the specified text.
+             *
+             * @param text
+             *        the text value of this element
+             *
+             * @return an instruction representing this element.
+             */
+            ElementInstruction \{methodName}(String text);
+        """);
+
+      } else if (spec.isAmbiguous(element)) {
+
+        methods.add(code."""
+            /**
+             * Generates the {@code \{element.name()}} attribute or element with the specified text.
+             *
+             * @param text
+             *        the text value of this attribute or element
+             *
+             * @return an instruction representing this attribute or element.
+             */
+            ElementInstruction \{methodName}(String text);
         """);
 
       }
