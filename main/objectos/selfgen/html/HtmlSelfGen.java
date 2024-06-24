@@ -56,23 +56,21 @@ public abstract class HtmlSelfGen {
 
     writeTo(new HtmlAttributeNameGeneratedStep(this), directory);
 
+    writeTo(new HtmlCompilerAttributesStep(this), directory);
+
+    writeTo(new HtmlElementNameGeneratedStep(this), directory);
+
     writeTo(new HtmlStep(this), directory);
 
     // new
 
     writeTo(new ApiStep(this), directory);
 
-    writeTo(new HtmlCompilerAttributesStep(this), directory);
-
     writeTo(new BaseElementsStep(this), directory);
 
     writeTo(new TemplateAttributesStep(this), directory);
 
     writeTo(new TemplateElementsStep(this), directory);
-
-    // old
-
-    writeTo(new StandardElementNameStep(this), directory);
   }
 
   public final Set<String> elementNames() {

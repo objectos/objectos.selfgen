@@ -18,16 +18,17 @@ package objectos.selfgen.html;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import objectos.code.ClassName;
 
-final class StandardElementNameStep extends ThisTemplate {
+final class HtmlElementNameGeneratedStep extends ThisTemplate {
 
-  public StandardElementNameStep(HtmlSelfGen spec) {
+  public HtmlElementNameGeneratedStep(HtmlSelfGen spec) {
     super(spec);
   }
 
   @Override
   final String contents() {
-    className(STD_ELEMENT_NAME);
+    className(ClassName.of(WAY_PACKAGE, "HtmlElementNameGenerated"));
 
     return code."""
     /*
@@ -48,45 +49,14 @@ final class StandardElementNameStep extends ThisTemplate {
     package \{packageName};
     \{importList}
     /**
-     * TODO
+     * Provides the names of the standard HTML elements.
      */
     \{GENERATED_MSG}
-    enum \{simpleName} implements \{ELEMENT_NAME} {
+    abstract class \{simpleName} {
+    
+      \{simpleName}() {}
+    
     \{constants()}
-
-      private static final \{simpleName}[] ARRAY = \{simpleName}.values();
-
-      private final \{ELEMENT_KIND} kind;
-
-      private final String name;
-
-      private \{simpleName}(\{ELEMENT_KIND} kind, String name) {
-        this.kind = kind;
-        this.name = name;
-      }
-
-      public static \{simpleName} getByCode(int code) {
-        return ARRAY[code];
-      }
-
-      public static int size() {
-        return ARRAY.length;
-      }
-
-      @Override
-      public final int getCode() {
-        return ordinal();
-      }
-
-      @Override
-      public final \{ELEMENT_KIND} getKind() {
-        return kind;
-      }
-
-      @Override
-      public final String getName() {
-        return name;
-      }
     }
     """;
   }
@@ -100,17 +70,22 @@ final class StandardElementNameStep extends ThisTemplate {
       javaName = element.constantName;
 
       String kind;
-      kind = element.hasEndTag() ? "NORMAL" : "VOID";
+      kind = element.hasEndTag() ? "Normal" : "Void";
 
       String htmlName;
       htmlName = element.name();
 
       constants.add(
-          code."  \{javaName}(\{ELEMENT_KIND}.\{kind}, \"\{htmlName}\")"
+          code."""
+            /**
+             * The {@code \{htmlName}} element.
+             */
+            public static final HtmlElementName \{javaName} = HtmlElementName.create\{kind}("\{htmlName}");
+          """
       );
     }
 
-    return constants.stream().collect(Collectors.joining(",\n\n", "", ";"));
+    return constants.stream().collect(Collectors.joining("\n"));
   }
 
 }
