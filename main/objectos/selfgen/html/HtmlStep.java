@@ -17,9 +17,9 @@ package objectos.selfgen.html;
 
 import objectos.code.ClassName;
 
-final class HtmlGenerated extends ThisTemplate {
+final class HtmlStep extends ThisTemplate {
 
-  HtmlGenerated(HtmlSelfGen spec) {
+  HtmlStep(HtmlSelfGen spec) {
     super(spec);
   }
 

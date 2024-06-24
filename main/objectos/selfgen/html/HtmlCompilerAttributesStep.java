@@ -15,20 +15,17 @@
  */
 package objectos.selfgen.html;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
-final class HtmlAttributeNameGenerated extends ThisTemplate {
+final class HtmlCompilerAttributesStep extends ThisTemplate {
 
-  public HtmlAttributeNameGenerated(HtmlSelfGen spec) {
+  public HtmlCompilerAttributesStep(HtmlSelfGen spec) {
     super(spec);
   }
 
   @Override
   final String contents() {
-    className(ClassName.of(WAY_PACKAGE, "HtmlAttributeNameGenerated"));
+    className(ClassName.of(WAY_PACKAGE, "HtmlCompilerAttributes"));
 
     return code."""
     /*
@@ -48,41 +45,55 @@ final class HtmlAttributeNameGenerated extends ThisTemplate {
      */
     package \{packageName};
     \{importList}
+    /**
+     * Provides methods for rendering HTML attributes.
+     */
     \{GENERATED_MSG}
-    abstract class \{simpleName} {
-
+    abstract class \{simpleName} extends HtmlRecorder {
+    
       \{simpleName}() {}
 
-    \{constants()}
+    \{attributes()}
     }
     """;
   }
 
-  private String constants() {
-    List<String> constants;
-    constants = new ArrayList<>();
+  private String attributes() {
+    return attributeMethods((name, attribute) -> {
+      String constantName;
+      constantName = attribute.constantName;
 
-    for (var attribute : spec.attributes()) {
-      String javaName;
-      javaName = attribute.constantName;
+      AttributeKind kind;
+      kind = attribute.kind();
 
-      String htmlName;
-      htmlName = attribute.name();
-
-      boolean booleanAttribute;
-      booleanAttribute = attribute.kind().isBoolean();
-
-      constants.add(
-          code."""
-            /**
-             * The {@code \{htmlName}} attribute.
-             */
-            public static final Html.AttributeName \{javaName} = HtmlAttributeName.create(\"\{htmlName}\", \{booleanAttribute});
-          """
-      );
-    }
-
-    return constants.stream().collect(Collectors.joining("\n"));
+      if (kind.isString()) {
+        return code."""
+          /**
+           * Generates the {@code \{attribute.name()}} attribute with the specified value.
+           *
+           * @param value
+           *        the value of the attribute
+           *
+           * @return an instruction representing this attribute.
+           */
+          public final Html.AttributeInstruction \{name}(String value) {
+            \{CHECK}.notNull(value, "value == null");
+            return attribute0(HtmlAttributeName.\{constantName}, value);
+          }
+        """;
+      } else {
+        return code."""
+          /**
+           * Generates the {@code \{attribute.name()}} boolean attribute.
+           *
+           * @return an instruction representing this attribute.
+           */
+          public final Html.AttributeInstruction \{name}() {
+            return attribute0(HtmlAttributeName.\{constantName});
+          }
+        """;
+      }
+    });
   }
 
 }

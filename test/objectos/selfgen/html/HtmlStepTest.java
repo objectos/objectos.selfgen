@@ -19,15 +19,15 @@ import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
 
-public class HtmlGeneratedTest {
+public class HtmlStepTest {
 
   @Test
   public void execute() {
     HtmlSelfGen spec;
     spec = TestingHtmlSelfGen.SPEC;
 
-    HtmlGenerated template;
-    template = new HtmlGenerated(spec);
+    HtmlStep template;
+    template = new HtmlStep(spec);
 
     assertEquals(
         template.toString(),
