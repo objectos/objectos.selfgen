@@ -97,7 +97,7 @@ final class HtmlStep extends ThisTemplate {
         TemplateAttributes() {}
   
     \{templateAttributesMethods()}
-        abstract CompilerAttributes $compiler();
+        abstract CompilerAttributes $attributes();
         
       }
     """;
@@ -119,7 +119,7 @@ final class HtmlStep extends ThisTemplate {
                  * @return an instruction representing this attribute.
                  */
                 protected final AttributeInstruction \{name}(String value) {
-                  return $compiler().\{name}(value);
+                  return $attributes().\{name}(value);
                 }
             """;
       } else {
@@ -130,7 +130,7 @@ final class HtmlStep extends ThisTemplate {
                  * @return an instruction representing this attribute.
                  */
                 protected final AttributeInstruction \{name}() {
-                  return $compiler().\{name}();
+                  return $attributes().\{name}();
                 }
             """;
       }
@@ -204,12 +204,11 @@ final class HtmlStep extends ThisTemplate {
            * Generates the {@code <!DOCTYPE html>} doctype.
            */
           protected final void doctype() {
-            $compiler().doctype();
+            $elements().doctype();
           }
   
       \{templateElementsMethods()}
-          @Override
-          abstract CompilerElements $compiler();
+          abstract CompilerElements $elements();
         
         }
       """;
@@ -239,7 +238,7 @@ final class HtmlStep extends ThisTemplate {
            * @return an instruction representing this element.
            */
           protected final ElementInstruction \{methodName}(\{paramTypeName}... contents) {
-            return $compiler().\{methodName}(contents);
+            return $elements().\{methodName}(contents);
           }
       """);
 
@@ -255,7 +254,7 @@ final class HtmlStep extends ThisTemplate {
              * @return an instruction representing this element.
              */
             protected final ElementInstruction \{methodName}(String text) {
-              return $compiler().\{methodName}(text);
+              return $elements().\{methodName}(text);
             }
         """);
 
@@ -271,7 +270,7 @@ final class HtmlStep extends ThisTemplate {
              * @return an instruction representing this attribute or element.
              */
             protected final ElementInstruction \{methodName}(String text) {
-              return $compiler().\{methodName}(text);
+              return $elements().\{methodName}(text);
             }
         """);
 
@@ -288,6 +287,11 @@ final class HtmlStep extends ThisTemplate {
        */
       public sealed interface CompilerElements permits Compiler {
     
+        /**
+         * Generates the {@code <!DOCTYPE html>} doctype.
+         */
+        void doctype();
+
     \{compilerElementsMethods()}
       }
     """;

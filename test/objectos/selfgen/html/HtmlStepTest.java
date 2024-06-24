@@ -90,7 +90,7 @@ public final class Html {
      * @return an instruction representing this attribute.
      */
     protected final AttributeInstruction disabled() {
-      return $compiler().disabled();
+      return $attributes().disabled();
     }
 
     /**
@@ -102,7 +102,7 @@ public final class Html {
      * @return an instruction representing this attribute.
      */
     protected final AttributeInstruction label(String value) {
-      return $compiler().label(value);
+      return $attributes().label(value);
     }
 
     /**
@@ -114,10 +114,10 @@ public final class Html {
      * @return an instruction representing this attribute.
      */
     protected final AttributeInstruction lang(String value) {
-      return $compiler().lang(value);
+      return $attributes().lang(value);
     }
 
-    abstract CompilerAttributes $compiler();
+    abstract CompilerAttributes $attributes();
 
   }
 
@@ -172,7 +172,7 @@ public final class Html {
      * Generates the {@code <!DOCTYPE html>} doctype.
      */
     protected final void doctype() {
-      $compiler().doctype();
+      $elements().doctype();
     }
 
     /**
@@ -184,7 +184,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction a(Instruction... contents) {
-      return $compiler().a(contents);
+      return $elements().a(contents);
     }
 
     /**
@@ -196,7 +196,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction a(String text) {
-      return $compiler().a(text);
+      return $elements().a(text);
     }
 
     /**
@@ -208,7 +208,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction meta(AttributeInstruction... contents) {
-      return $compiler().meta(contents);
+      return $elements().meta(contents);
     }
 
     /**
@@ -220,7 +220,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction option(Instruction... contents) {
-      return $compiler().option(contents);
+      return $elements().option(contents);
     }
 
     /**
@@ -232,7 +232,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction option(String text) {
-      return $compiler().option(text);
+      return $elements().option(text);
     }
 
     /**
@@ -244,7 +244,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction select(Instruction... contents) {
-      return $compiler().select(contents);
+      return $elements().select(contents);
     }
 
     /**
@@ -256,7 +256,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction select(String text) {
-      return $compiler().select(text);
+      return $elements().select(text);
     }
 
     /**
@@ -268,7 +268,7 @@ public final class Html {
      * @return an instruction representing this element.
      */
     protected final ElementInstruction title(Instruction... contents) {
-      return $compiler().title(contents);
+      return $elements().title(contents);
     }
 
     /**
@@ -280,11 +280,10 @@ public final class Html {
      * @return an instruction representing this attribute or element.
      */
     protected final ElementInstruction title(String text) {
-      return $compiler().title(text);
+      return $elements().title(text);
     }
 
-    @Override
-    abstract CompilerElements $compiler();
+    abstract CompilerElements $elements();
 
   }
 
@@ -292,6 +291,11 @@ public final class Html {
    * Provides the HTML elements compiler methods.
    */
   public sealed interface CompilerElements permits Compiler {
+
+    /**
+     * Generates the {@code <!DOCTYPE html>} doctype.
+     */
+    void doctype();
 
     /**
      * Generates the {@code a} element with the specified content.
