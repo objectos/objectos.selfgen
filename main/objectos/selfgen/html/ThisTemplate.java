@@ -20,6 +20,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 import objectos.code.ClassName;
 import objectos.code.Code;
 import objectos.code.Code.ImportList;
@@ -98,6 +102,29 @@ abstract class ThisTemplate {
     Files.writeString(
         file, contents, StandardCharsets.UTF_8,
         StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+  }
+
+  final String attributeMethods(BiFunction<String, AttributeSpec, String> function) {
+    List<String> methods;
+    methods = new ArrayList<>();
+
+    TemplateSpec template;
+    template = spec.template();
+
+    for (var attribute : spec.attributes()) {
+      for (String name : attribute.methodNames()) {
+        if (!template.shouldIncludeAttribute(name)) {
+          continue;
+        }
+
+        String method;
+        method = function.apply(name, attribute);
+        
+        methods.add(method);
+      }
+    }
+
+    return methods.stream().collect(Collectors.joining("\n"));
   }
 
   final void className(ClassName className) {

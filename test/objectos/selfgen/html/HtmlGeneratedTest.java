@@ -24,30 +24,7 @@ public class HtmlGeneratedTest {
   @Test
   public void execute() {
     HtmlSelfGen spec;
-    spec = new HtmlSelfGen() {
-      @Override
-      protected final void definition() {
-        template()
-            .skipAttribute("title");
-
-        rootElement()
-            .attribute("lang")
-            .attribute("title");
-
-        element("a").simpleName("Anchor");
-
-        element("title");
-
-        element("meta").noEndTag();
-
-        element("option")
-            .attribute("disabled").booleanType()
-            .attribute("label");
-
-        element("select")
-            .attribute("disabled").booleanType();
-      }
-    }.prepare();
+    spec = TestingHtmlSelfGen.SPEC;
 
     HtmlGenerated template;
     template = new HtmlGenerated(spec);

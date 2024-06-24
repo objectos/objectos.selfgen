@@ -15,10 +15,6 @@
  */
 package objectos.selfgen.html;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
 final class HtmlGenerated extends ThisTemplate {
@@ -179,27 +175,6 @@ final class HtmlGenerated extends ThisTemplate {
     });
   }
   
-  private String attributeMethods(BiFunction<String, AttributeSpec, String> function) {
-    List<String> methods;
-    methods = new ArrayList<>();
-
-    TemplateSpec template;
-    template = spec.template();
-
-    for (var attribute : spec.attributes()) {
-      for (String name : attribute.methodNames()) {
-        if (!template.shouldIncludeAttribute(name)) {
-          continue;
-        }
-
-        String method;
-        method = function.apply(name, attribute);
-        
-        methods.add(method);
-      }
-    }
-
-    return methods.stream().collect(Collectors.joining("\n"));
-  }
+  
 
 }

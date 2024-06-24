@@ -20,15 +20,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import objectos.code.ClassName;
 
-final class GeneratedAttributeNameStep extends ThisTemplate {
+final class HtmlAttributeNameGenerated extends ThisTemplate {
 
-  public GeneratedAttributeNameStep(HtmlSelfGen spec) {
+  public HtmlAttributeNameGenerated(HtmlSelfGen spec) {
     super(spec);
   }
 
   @Override
   final String contents() {
-    className(ClassName.of(HTML_PACKAGE, "GeneratedAttributeName"));
+    className(ClassName.of(WAY_PACKAGE, "HtmlAttributeNameGenerated"));
 
     return code."""
     /*
@@ -77,7 +77,7 @@ final class GeneratedAttributeNameStep extends ThisTemplate {
             /**
              * The {@code \{htmlName}} attribute.
              */
-            public static final \{ATTRIBUTE_NAME} \{javaName} = WayAttributeNameBuilder.create(\"\{htmlName}\", \{booleanAttribute});
+            public static final Html.AttributeName \{javaName} = HtmlAttributeName.create(\"\{htmlName}\", \{booleanAttribute});
           """
       );
     }
