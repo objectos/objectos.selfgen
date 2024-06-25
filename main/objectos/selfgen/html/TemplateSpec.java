@@ -22,8 +22,6 @@ public final class TemplateSpec {
 
   private final Set<String> skipAttribute = new HashSet<>();
 
-  private final Set<String> skipText = new HashSet<>();
-
   TemplateSpec() {}
 
   public final boolean shouldIncludeAttribute(String method) {
@@ -31,19 +29,15 @@ public final class TemplateSpec {
   }
 
   public final boolean shouldIncludeText(ElementSpec elementSpec) {
-    String methodName = elementSpec.methodName();
-    return elementSpec.hasEndTag()
-        && !skipAttribute.contains(methodName)
-        && !skipText.contains(elementSpec.methodName());
+    String methodName;
+    methodName = elementSpec.methodName();
+
+    return elementSpec.hasEndTag() && !skipAttribute.contains(methodName);
   }
 
   public final TemplateSpec skipAttribute(String methodName) {
     skipAttribute.add(methodName);
-    return this;
-  }
 
-  public final TemplateSpec skipText(String methodName) {
-    skipText.add(methodName);
     return this;
   }
 

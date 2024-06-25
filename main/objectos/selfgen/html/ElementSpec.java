@@ -29,7 +29,7 @@ public final class ElementSpec
 
   public String valueSimpleName;
 
-  private ElementAttributeSpec attribute;
+  private AttributeSpec attribute;
 
   private final HtmlSelfGen dsl;
 
@@ -62,7 +62,9 @@ public final class ElementSpec
 
   public final ElementSpec attribute(String name) {
     stringKindIfNecessary();
-    attribute = dsl.elementAttribute(this, name);
+
+    attribute = dsl.attribute(name);
+
     return this;
   }
 

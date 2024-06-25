@@ -32,7 +32,7 @@ public final class RootElementSpec {
 
   public final RootElementSpec attribute(String name) {
     stringKindIfNecessary();
-    attribute = dsl.globalAttribute(name);
+    attribute = dsl.attribute(name);
     return this;
   }
 

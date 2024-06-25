@@ -73,9 +73,10 @@ public abstract class HtmlSelfGen {
   }
 
   public final boolean isAmbiguous(ElementSpec element) {
-    var name = element.name();
+    String methodName;
+    methodName = element.methodName();
 
-    return attributeMap.containsKey(name);
+    return !template.shouldIncludeAttribute(methodName);
   }
 
   protected abstract void definition();
@@ -112,24 +113,19 @@ public abstract class HtmlSelfGen {
     return attributeMap.get(name);
   }
 
-  final ElementAttributeSpec elementAttribute(ElementSpec parent, String name) {
-    var attr = attributeMap.computeIfAbsent(name, this::elementAttribute0);
-
-    return attr.toElementAttributeSpec(parent);
-  }
-
   final Collection<ElementSpec> elements() {
     return elementMap.values();
   }
 
-  final AttributeSpec globalAttribute(String name) {
-    if (attributeMap.containsKey(name)) {
-      throw new IllegalArgumentException(name + " global attribute already defined!");
+  final AttributeSpec attribute(String name) {
+    AttributeSpec attr;
+    attr = attributeMap.get(name);
+
+    if (attr == null) {
+      attr = new AttributeSpec(name);
+
+      attributeMap.put(name, attr);
     }
-
-    var attr = AttributeSpec.global(name);
-
-    attributeMap.put(name, attr);
 
     return attr;
   }
@@ -142,10 +138,6 @@ public abstract class HtmlSelfGen {
 
   private ElementSpec element0(String name) {
     return new ElementSpec(this, name);
-  }
-
-  private ElementAttributeSpec elementAttribute0(String name) {
-    return new ElementAttributeSpec(name);
   }
 
   private void writeTo(ThisTemplate template, Path directory) throws IOException {

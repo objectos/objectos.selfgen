@@ -21,29 +21,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import objectos.selfgen.util.JavaNames;
 
-abstract class AttributeSpec {
-
-  private static class GlobalAttributeSpec extends AttributeSpec {
-
-    GlobalAttributeSpec(String name) {
-      super(name);
-    }
-
-    @Override
-    public final boolean global() {
-      return true;
-    }
-
-    @Override
-    final ElementAttributeSpec toElementAttributeSpec(ElementSpec parent) {
-      throw new IllegalArgumentException(name() + " attribute was already defined as global!");
-    }
-
-  }
+final class AttributeSpec {
 
   public final String constantName;
-
-  final Set<String> elements = new TreeSet<>();
 
   String instructionSimpleName;
 
@@ -59,10 +39,6 @@ abstract class AttributeSpec {
     constantName = JavaNames.toIdentifier(name.replace('-', '_').toUpperCase());
   }
 
-  static AttributeSpec global(String name) {
-    return new GlobalAttributeSpec(name);
-  }
-
   public final void addKind(AttributeKind kind) {
     kindSet.add(kind);
   }
@@ -75,10 +51,6 @@ abstract class AttributeSpec {
 
   public final String constantName() {
     return constantName;
-  }
-
-  public boolean global() {
-    return false;
   }
 
   public final AttributeKind kind() {
@@ -112,8 +84,6 @@ abstract class AttributeSpec {
   public final String simpleName() {
     return JavaNames.toValidClassName(name);
   }
-
-  abstract ElementAttributeSpec toElementAttributeSpec(ElementSpec parent);
 
   private String methodName(String value) {
     return JavaNames.toValidMethodName(value);
