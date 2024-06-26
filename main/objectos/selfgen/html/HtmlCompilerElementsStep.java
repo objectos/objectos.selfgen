@@ -53,7 +53,7 @@ final class HtmlCompilerElementsStep extends ThisTemplate {
      */
     \{GENERATED_MSG}
     abstract class \{simpleName} extends HtmlCompilerAttributes {
-    
+
       \{simpleName}() {}
 
     \{elements()}
@@ -73,7 +73,7 @@ final class HtmlCompilerElementsStep extends ThisTemplate {
       methodName = element.methodName();
 
       String paramTypeName;
-      paramTypeName = element.hasEndTag() ? "Html.Instruction" : "Html.AttributeInstruction";
+      paramTypeName = element.hasEndTag() ? "Html.Instruction" : "Html.VoidInstruction";
 
       String constantName;
       constantName = element.constantName;

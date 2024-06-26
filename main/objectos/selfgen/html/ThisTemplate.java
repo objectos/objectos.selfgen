@@ -71,7 +71,8 @@ abstract class ThisTemplate {
 
     Files.writeString(
         file, contents, StandardCharsets.UTF_8,
-        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING
+    );
   }
 
   final String attributeMethods(BiFunction<String, AttributeSpec, String> function) {
@@ -89,7 +90,7 @@ abstract class ThisTemplate {
 
         String method;
         method = function.apply(name, attribute);
-        
+
         methods.add(method);
       }
     }

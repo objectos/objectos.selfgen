@@ -92,7 +92,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    *
    * @return an instruction representing this element.
    */
-  public final Html.ElementInstruction meta(Html.AttributeInstruction... contents) {
+  public final Html.ElementInstruction meta(Html.VoidInstruction... contents) {
     element(HtmlElementName.META, contents);
     return Html.ELEMENT;
   }
