@@ -75,12 +75,12 @@ public final class Html {
    * Class of instructions that are allowed as arguments to template
    * methods that represent void elements.
    */
-  public sealed interface VoidInstruction extends MethodInstruction {}
+  public sealed interface VoidInstruction extends Instruction {}
 
   /**
    * An instruction to generate an HTML attribute in template.
    */
-  public sealed interface AttributeInstruction extends VoidInstruction {}
+  public sealed interface AttributeInstruction extends MethodInstruction, VoidInstruction {}
 
   /**
    * An instruction to generate an HTML element in a template.
@@ -90,12 +90,12 @@ public final class Html {
   /**
    * An instruction to include an HTML fragment to a template.
    */
-  public sealed interface FragmentInstruction extends VoidInstruction {}
+  public sealed interface FragmentInstruction extends MethodInstruction, VoidInstruction {}
 
   /**
    * The no-op instruction.
    */
-  public sealed interface NoOpInstruction extends VoidInstruction {}
+  public sealed interface NoOpInstruction extends MethodInstruction, VoidInstruction {}
 
   private static final class InstructionImpl
        implements
@@ -120,7 +120,7 @@ public final class Html {
   /**
    * The value of an HTML {@code class} attribute.
    */
-  public sealed interface ClassName extends ObjectInstruction {
+  public sealed interface ClassName extends ObjectInstruction, VoidInstruction {
 
     /**
      * The {@code class} value.
@@ -136,7 +136,7 @@ public final class Html {
   /**
    * The value of an HTML {@code id} attribute.
    */
-  public sealed interface Id extends ObjectInstruction {
+  public sealed interface Id extends ObjectInstruction, VoidInstruction {
 
     /**
      * The {@code id} value.
