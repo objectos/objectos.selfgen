@@ -34,11 +34,9 @@ public class RunTests {
     test.setName("All");
 
     test.setXmlPackages(
-      List.of(
-        new XmlPackage("objectos.selfgen.css"),
-        new XmlPackage("objectos.selfgen.html"),
-        new XmlPackage("selfgen.css.util")
-      )
+        List.of(
+            new XmlPackage("objectos.selfgen.html")
+        )
     );
 
     TestNG ng;
@@ -49,7 +47,7 @@ public class RunTests {
     }
 
     ng.setXmlSuites(
-      List.of(suite)
+        List.of(suite)
     );
 
     ng.run();

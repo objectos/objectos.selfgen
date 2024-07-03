@@ -88,7 +88,6 @@ TEST_ADD_MODULES := org.testng
 
 ## test runtime exports
 TEST_ADD_EXPORTS :=
-TEST_ADD_EXPORTS += objectos.selfgen/objectos.selfgen.css=org.testng
 TEST_ADD_EXPORTS += objectos.selfgen/objectos.selfgen.html=org.testng
 
 ## test --add-reads
