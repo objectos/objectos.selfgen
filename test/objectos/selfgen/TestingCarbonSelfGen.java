@@ -17,11 +17,11 @@ package objectos.selfgen;
 
 final class TestingCarbonSelfGen {
 
-  static final CarbonSelfGen SPEC = new CarbonSelfGen() {
+  static final CarbonSpec SPEC = new CarbonSelfGen() {
     @Override
     protected final void configure() {
-      element("Header");
+      element("Header", "UI Shell Header");
     }
-  };
+  }.toSpec();
 
 }

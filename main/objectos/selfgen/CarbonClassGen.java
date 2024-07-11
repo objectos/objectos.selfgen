@@ -15,6 +15,11 @@
  */
 package objectos.selfgen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import objectos.selfgen.CarbonSelfGen.CarbonElement;
+
 final class CarbonClassGen extends CarbonTemplate {
 
   public CarbonClassGen(CarbonSpec spec) {
@@ -58,8 +63,61 @@ final class CarbonClassGen extends CarbonTemplate {
       // DO NOT EDIT!
       //
 
+    \{elements()}
     }
     """;
+  }
+
+  private String elements() {
+    return code."""
+      // elements
+
+      sealed static abstract class Element1<T1> implements Html.FragmentLambda {
+        final Html.FragmentLambda1<T1> fragment;
+        final T1 data;
+
+        Element1(Html.FragmentLambda1<T1> fragment, T1 data) {
+          this.fragment = fragment;
+          this.data = data;
+        }
+
+        @Override
+        public final void invoke() throws Exception {
+          fragment.invoke(data);
+        }
+      }
+
+    \{elementTypes()}""";
+  }
+
+  private String elementTypes() {
+    List<String> types;
+    types = new ArrayList<>();
+
+    for (CarbonElement element : spec.elements()) {
+      String dataName;
+      dataName = element.dataName();
+
+      types.add(
+          code."""
+            /**
+             * The \{element.description}.
+             */
+            public static final class \{element.name} extends Element1<\{dataName}> {
+              /**
+               * An \{element.description} component.
+               */
+              public sealed interface Component extends Carbon.Component {}
+
+              Header(Html.FragmentLambda1<\{dataName}> fragment, \{dataName} data) {
+                super(fragment, data);
+              }
+            }
+          """
+      );
+    }
+
+    return types.stream().collect(Collectors.joining("\n"));
   }
 
 }

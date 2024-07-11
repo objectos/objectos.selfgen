@@ -16,9 +16,12 @@
 package objectos.selfgen;
 
 import objectos.code.Code;
+import objectos.selfgen.CarbonSelfGen.CarbonElement;
 
 abstract class CarbonSpec {
 
   abstract Code code();
+
+  abstract Iterable<CarbonElement> elements();
 
 }

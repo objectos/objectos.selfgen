@@ -66,8 +66,8 @@ abstract class CarbonTemplate {
     );
   }
 
-  final void className(String simpleName) {
-    this.className = ClassName.of("objectos.way", simpleName);
+  final void className(String name) {
+    this.className = ClassName.of("objectos.way", name);
 
     packageName = this.className.packageName();
 

@@ -21,12 +21,18 @@ import objectos.code.Code;
 
 abstract class CarbonSelfGen extends CarbonSpec {
 
+  @SuppressWarnings("unused")
   protected static final class CarbonElement {
-    @SuppressWarnings("unused")
-    private final String name;
+    final String name;
+    final String description;
 
-    public CarbonElement(String name) {
+    public CarbonElement(String name, String description) {
       this.name = name;
+      this.description = description;
+    }
+
+    public final String dataName() {
+      return name + "Data";
     }
   }
 
@@ -36,11 +42,22 @@ abstract class CarbonSelfGen extends CarbonSpec {
 
   protected abstract void configure();
 
-  protected final CarbonElement element(String name) {
-    return elements.computeIfAbsent(name, CarbonElement::new);
+  protected final CarbonElement element(String name, String description) {
+    return elements.computeIfAbsent(name, k -> new CarbonElement(name, description));
+  }
+
+  final CarbonSpec toSpec() {
+    configure();
+
+    return this;
   }
 
   @Override
   final Code code() { return code; }
+
+  @Override
+  final Iterable<CarbonElement> elements() {
+    return elements.values();
+  }
 
 }
