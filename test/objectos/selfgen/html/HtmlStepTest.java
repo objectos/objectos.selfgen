@@ -83,6 +83,11 @@ public final class Html {
   public sealed interface AttributeInstruction extends MethodInstruction, VoidInstruction {}
 
   /**
+   * An instruction to generate a {@code data-on-*} HTML attribute in a template.
+   */
+  public sealed interface DataOnInstruction extends MethodInstruction, VoidInstruction {}
+
+  /**
    * An instruction to generate an HTML element in a template.
    */
   public sealed interface ElementInstruction extends MethodInstruction {}
@@ -97,17 +102,18 @@ public final class Html {
    */
   public sealed interface NoOpInstruction extends MethodInstruction, VoidInstruction {}
 
+  sealed interface AttributeOrNoOp extends AttributeInstruction, DataOnInstruction, NoOpInstruction {}
+
   private static final class InstructionImpl
        implements
-       AttributeInstruction,
+       AttributeOrNoOp,
        ElementInstruction,
-       FragmentInstruction,
-       NoOpInstruction {}
+       FragmentInstruction {}
 
-  static final AttributeInstruction ATTRIBUTE = new InstructionImpl();
+  static final AttributeOrNoOp ATTRIBUTE = new InstructionImpl();
   static final ElementInstruction ELEMENT = new InstructionImpl();
   static final FragmentInstruction FRAGMENT = new InstructionImpl();
-  static final NoOpInstruction NOOP = new InstructionImpl();
+  static final AttributeOrNoOp NOOP = new InstructionImpl();
 
   /**
    * Class of instructions that are represented by object instances.
