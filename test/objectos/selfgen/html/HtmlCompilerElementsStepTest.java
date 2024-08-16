@@ -67,8 +67,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction a(Html.Instruction... contents) {
-    element(HtmlElementName.A, contents);
-    return Html.ELEMENT;
+    return element(HtmlElementName.A, contents);
   }
 
   /**
@@ -80,8 +79,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction a(String text) {
-    element(HtmlElementName.A, text);
-    return Html.ELEMENT;
+    return element(HtmlElementName.A, text);
   }
 
   /**
@@ -93,8 +91,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction meta(Html.VoidInstruction... contents) {
-    element(HtmlElementName.META, contents);
-    return Html.ELEMENT;
+    return element(HtmlElementName.META, contents);
   }
 
   /**
@@ -106,8 +103,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction option(Html.Instruction... contents) {
-    element(HtmlElementName.OPTION, contents);
-    return Html.ELEMENT;
+    return element(HtmlElementName.OPTION, contents);
   }
 
   /**
@@ -119,8 +115,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction option(String text) {
-    element(HtmlElementName.OPTION, text);
-    return Html.ELEMENT;
+    return element(HtmlElementName.OPTION, text);
   }
 
   /**
@@ -132,8 +127,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction select(Html.Instruction... contents) {
-    element(HtmlElementName.SELECT, contents);
-    return Html.ELEMENT;
+    return element(HtmlElementName.SELECT, contents);
   }
 
   /**
@@ -145,8 +139,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction select(String text) {
-    element(HtmlElementName.SELECT, text);
-    return Html.ELEMENT;
+    return element(HtmlElementName.SELECT, text);
   }
 
   /**
@@ -158,8 +151,7 @@ abstract class HtmlCompilerElements extends HtmlCompilerAttributes {
    * @return an instruction representing this element.
    */
   public final Html.ElementInstruction title(Html.Instruction... contents) {
-    element(HtmlElementName.TITLE, contents);
-    return Html.ELEMENT;
+    return element(HtmlElementName.TITLE, contents);
   }
 
   /**

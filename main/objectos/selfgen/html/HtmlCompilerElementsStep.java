@@ -89,8 +89,7 @@ final class HtmlCompilerElementsStep extends ThisTemplate {
            * @return an instruction representing this element.
            */
           public final Html.ElementInstruction \{methodName}(\{paramTypeName}... contents) {
-            element(HtmlElementName.\{constantName}, contents);
-            return Html.ELEMENT;
+            return element(HtmlElementName.\{constantName}, contents);
           }
         """
       );
@@ -108,8 +107,7 @@ final class HtmlCompilerElementsStep extends ThisTemplate {
              * @return an instruction representing this element.
              */
             public final Html.ElementInstruction \{methodName}(String text) {
-              element(HtmlElementName.\{constantName}, text);
-              return Html.ELEMENT;
+              return element(HtmlElementName.\{constantName}, text);
             }
           """
         );
