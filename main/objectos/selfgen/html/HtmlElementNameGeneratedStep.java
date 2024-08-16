@@ -52,10 +52,8 @@ final class HtmlElementNameGeneratedStep extends ThisTemplate {
      * Provides the names of the standard HTML elements.
      */
     \{GENERATED_MSG}
-    abstract class \{simpleName} {
-    
-      \{simpleName}() {}
-    
+    interface \{simpleName} {
+
     \{constants()}
     }
     """;
@@ -80,7 +78,7 @@ final class HtmlElementNameGeneratedStep extends ThisTemplate {
             /**
              * The {@code \{htmlName}} element.
              */
-            public static final HtmlElementName \{javaName} = HtmlElementName.create\{kind}("\{htmlName}");
+            public static final Html.ElementName \{javaName} = HtmlElementName.create\{kind}("\{htmlName}");
           """
       );
     }

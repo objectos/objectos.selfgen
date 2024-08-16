@@ -49,9 +49,7 @@ final class HtmlAttributeNameGeneratedStep extends ThisTemplate {
     package \{packageName};
     \{importList}
     \{GENERATED_MSG}
-    abstract class \{simpleName} {
-
-      \{simpleName}() {}
+    interface \{simpleName} {
 
     \{constants()}
     }
@@ -77,7 +75,7 @@ final class HtmlAttributeNameGeneratedStep extends ThisTemplate {
             /**
              * The {@code \{htmlName}} attribute.
              */
-            public static final HtmlAttributeName \{javaName} = HtmlAttributeName.create(\"\{htmlName}\", \{booleanAttribute});
+            public static final Html.AttributeName \{javaName} = HtmlAttributeName.create(\"\{htmlName}\", \{booleanAttribute});
           """
       );
     }
